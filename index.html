@@ -1,225 +1,96 @@
 <!DOCTYPE html>
 <html lang="fi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Suomalaiset Twitch-striimaajat</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            dark: '#0f0f0f',
+            accent: '#9146FF',
+            card1: '#1e1b32',
+            card2: '#1d2a3a',
+            card3: '#2a1e30',
+            card4: '#1e2f1f',
+            card5: '#3a1e1e',
+          },
+          animation: {
+            fade: 'fadeIn 0.5s ease-in-out',
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: 0 },
+              '100%': { opacity: 1 },
+            },
+          },
+        }
+      }
+    }
+  </script>
   <style>
     body {
-      margin: 0;
-      background: #0e0e10;
-      color: white;
-      font-family: 'Segoe UI', sans-serif;
+      background: radial-gradient(circle at 20% 20%, #181818, #000);
+      background-attachment: fixed;
     }
-
-    header {
-      display: flex;
-      justify-content: center;
-      background: #18181b;
-      padding: 1rem;
-    }
-
-    nav button {
-      background: none;
-      border: none;
-      color: white;
-      font-size: 1rem;
-      margin: 0 1rem;
-      cursor: pointer;
-      padding: 0.5rem;
-    }
-
-    nav button.active {
-      border-bottom: 2px solid #9147ff;
-    }
-
-    main {
-      padding: 2rem;
-    }
-
-    .page {
-      display: none;
-    }
-
-    .page.active {
-      display: block;
-    }
-
-    .card {
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 1rem;
-      padding: 1rem;
-      margin: 1rem auto;
-      max-width: 400px;
-      text-align: center;
-      box-shadow: 0 0 10px rgba(145, 71, 255, 0.2);
-      transition: transform 0.3s;
-    }
-
-    .card:hover {
-      transform: scale(1.02);
-    }
-
-    .twitch-logo {
-      width: 64px;
-      margin-bottom: 1rem;
-    }
-
-    .variant-1 { filter: hue-rotate(0deg); }
-    .variant-2 { filter: hue-rotate(60deg); }
-    .variant-3 { filter: hue-rotate(120deg); }
-    .variant-4 { filter: hue-rotate(180deg); }
-    .variant-5 { filter: hue-rotate(240deg); }
-
-    .visit-channel-btn {
-      display: inline-block;
-      margin-top: 0.5rem;
-      padding: 0.5rem 1rem;
-      background: #9147ff;
-      color: white;
-      text-decoration: none;
-      border-radius: 6px;
-      transition: background 0.3s;
-    }
-
-    .visit-channel-btn:hover {
-      background: #772ce8;
-    }
-
-    #follow-text {
-      position: fixed;
-      bottom: 8px;
-      right: 12px;
-      font-size: 0.75rem;
-      background: rgba(255,255,255,0.05);
-      padding: 6px 10px;
-      border-radius: 4px;
-      cursor: pointer;
-      color: #9147ff;
-      font-weight: 600;
-    }
-
-    #search {
-      display: block;
-      margin: 1rem auto;
-      padding: 0.5rem;
-      width: 80%;
-      max-width: 400px;
-      border-radius: 6px;
-      border: none;
-      background: #2c2c31;
-      color: white;
-    }
-
   </style>
 </head>
-<body>
+<body class="bg-dark text-white font-sans">
+  <div class="max-w-6xl mx-auto p-6">
+    <h1 class="text-4xl font-bold mb-6 text-center text-accent">🇫🇮 Suomalaiset Twitch-striimaajat</h1>
 
-  <header>
-    <nav>
-      <button data-page="home" class="active">Etusivu</button>
-      <button data-page="streamers">Streamers</button>
-    </nav>
-  </header>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Streamer Cards -->
+      <div class="p-6 rounded-2xl shadow-lg animate-fade bg-card1 flex flex-col items-center text-center">
+        <img src="/icons/twitch1.svg" class="w-12 h-12 mb-4">
+        <h2 class="text-xl font-semibold text-accent">J1mPPaZ</h2>
+        <p class="mb-2">Koodausta, pelejä ja luovuutta</p>
+        <p class="italic text-sm text-gray-400 mb-2">Viimeisin otsikko: "Rakennetaan jotain hullua taas..."</p>
+        <a href="https://www.twitch.tv/j1mppaz" target="_blank" class="bg-accent text-dark px-4 py-2 rounded-lg font-medium hover:bg-purple-500 transition">Käy kanavalla</a>
+      </div>
 
-  <main>
-    <section id="home" class="page active">
-      <div id="streamer-list-home"></div>
-    </section>
-    <section id="streamers" class="page">
-      <input id="search" type="text" placeholder="Etsi striimaajaa..." />
-      <div id="streamer-list-streamers"></div>
-    </section>
-  </main>
+      <div class="p-6 rounded-2xl shadow-lg animate-fade bg-card2 flex flex-col items-center text-center">
+        <img src="/icons/twitch2.svg" class="w-12 h-12 mb-4">
+        <h2 class="text-xl font-semibold text-accent">Skotti</h2>
+        <p class="mb-2">Energiaa, yhteisöä ja viihdettä</p>
+        <p class="italic text-sm text-gray-400 mb-2">Viimeisin otsikko: "Pelataan porukalla!"</p>
+        <a href="https://www.twitch.tv/skotti" target="_blank" class="bg-accent text-dark px-4 py-2 rounded-lg font-medium hover:bg-purple-500 transition">Käy kanavalla</a>
+      </div>
 
-  <div id="follow-text">Follow J1mPPaZ in Twitch!</div>
+      <div class="p-6 rounded-2xl shadow-lg animate-fade bg-card3 flex flex-col items-center text-center">
+        <img src="/icons/twitch3.svg" class="w-12 h-12 mb-4">
+        <h2 class="text-xl font-semibold text-accent">Gargee</h2>
+        <p class="mb-2">Rentoa pelailua ja juttelua</p>
+        <p class="italic text-sm text-gray-400 mb-2">Viimeisin otsikko: "Chill stream 🌙"</p>
+        <a href="https://www.twitch.tv/gargee" target="_blank" class="bg-accent text-dark px-4 py-2 rounded-lg font-medium hover:bg-purple-500 transition">Käy kanavalla</a>
+      </div>
 
-  <script>
-    const streamers = [
-      { name: "J1mPPaZ", description: "Hauskoja hetkiä ja chill stream!", channelUrl: "https://twitch.tv/j1mppaz", live: true },
-      { name: "Skotti", description: "FPS-pelejä ja reaktiota.", channelUrl: "https://twitch.tv/skotti", live: false },
-      { name: "Gargee", description: "Just chatting ja retroilua.", channelUrl: "https://twitch.tv/gargee", live: false },
-      { name: "Lewaaw", description: "Let's play & kavereiden kanssa.", channelUrl: "https://twitch.tv/lewaaw", live: false },
-      { name: "Novicci", description: "Hyvää fiilistä ja paljon naurua!", channelUrl: "https://twitch.tv/novicci", live: true }
-    ];
+      <div class="p-6 rounded-2xl shadow-lg animate-fade bg-card4 flex flex-col items-center text-center">
+        <img src="/icons/twitch4.svg" class="w-12 h-12 mb-4">
+        <h2 class="text-xl font-semibold text-accent">Lewaaw</h2>
+        <p class="mb-2">Kilpailullinen meininki</p>
+        <p class="italic text-sm text-gray-400 mb-2">Viimeisin otsikko: "Ranked grind alkaa nyt!"</p>
+        <a href="https://www.twitch.tv/lewaaw" target="_blank" class="bg-accent text-dark px-4 py-2 rounded-lg font-medium hover:bg-purple-500 transition">Käy kanavalla</a>
+      </div>
 
-    const twitchLogo = "https://static.twitchcdn.net/assets/favicon-32-e29e246c157142c94346.png";
-    const homeList = document.getElementById('streamer-list-home');
-    const streamersList = document.getElementById('streamer-list-streamers');
-    const searchInput = document.getElementById('search');
+      <div class="p-6 rounded-2xl shadow-lg animate-fade bg-card5 flex flex-col items-center text-center">
+        <img src="/icons/twitch5.svg" class="w-12 h-12 mb-4">
+        <h2 class="text-xl font-semibold text-accent">Novicci</h2>
+        <p class="mb-2">Yhteisölähetyksiä ja keskustelua</p>
+        <p class="italic text-sm text-gray-400 mb-2">Viimeisin otsikko: "Kysymyksiä & vastauksia illalla"</p>
+        <a href="https://www.twitch.tv/novicci" target="_blank" class="bg-accent text-dark px-4 py-2 rounded-lg font-medium hover:bg-purple-500 transition">Käy kanavalla</a>
+      </div>
+    </div>
 
-    function createCard(streamer, index) {
-      const card = document.createElement('div');
-      card.className = 'card';
+    <!-- Navigation to other pages -->
+    <div class="mt-16 grid gap-6 md:grid-cols-2">
+      <a href="tyokalut.html" class="bg-gray-800 hover:bg-gray-700 text-white text-center py-4 rounded-xl shadow transition">🔧 Työkalut striimaajille</a>
+      <a href="vinkit.html" class="bg-gray-800 hover:bg-gray-700 text-white text-center py-4 rounded-xl shadow transition">💡 Streamausvinkit</a>
+    </div>
 
-      const logo = document.createElement('img');
-      logo.src = twitchLogo;
-      logo.alt = 'Twitch';
-      logo.className = 'twitch-logo variant-' + ((index % 5) + 1);
-      card.appendChild(logo);
-
-      const name = document.createElement('h2');
-      name.textContent = streamer.name;
-      card.appendChild(name);
-
-      const desc = document.createElement('p');
-      desc.textContent = streamer.description;
-      card.appendChild(desc);
-
-      const live = document.createElement('p');
-      live.textContent = streamer.live ? '🟢 LIVE' : '⚪ OFFLINE';
-      live.style.fontWeight = '700';
-      live.style.color = streamer.live ? '#2ecc71' : '#888';
-      card.appendChild(live);
-
-      const link = document.createElement('a');
-      link.href = streamer.channelUrl;
-      link.target = '_blank';
-      link.className = 'visit-channel-btn';
-      link.textContent = 'Käy kanavalla';
-      card.appendChild(link);
-
-      return card;
-    }
-
-    function renderStreamers(filter = '') {
-      homeList.innerHTML = '';
-      streamersList.innerHTML = '';
-
-      const filtered = streamers.filter(s => s.name.toLowerCase().includes(filter.toLowerCase()));
-
-      filtered.forEach((s, i) => {
-        if (s.name === "J1mPPaZ") {
-          homeList.appendChild(createCard(s, i));
-        } else {
-          streamersList.appendChild(createCard(s, i));
-        }
-      });
-    }
-
-    renderStreamers();
-
-    searchInput.addEventListener('input', (e) => {
-      renderStreamers(e.target.value);
-    });
-
-    document.querySelectorAll('nav button').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        const selectedPage = document.getElementById(btn.dataset.page);
-        if (selectedPage) selectedPage.classList.add('active');
-
-        searchInput.value = '';
-        renderStreamers();
-      });
-    });
-
-    document.getElementById('follow-text').addEventListener('click', () => {
-      window.open('https://twitch.tv/j1mppaz', '_blank');
-    });
-  </script>
+  </div>
 </body>
 </html>
