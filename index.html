@@ -3,195 +3,314 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Suomalaiset Twitch-striimaajat</title>
+<title>Suomalaiset Twitch-striimaajat – Top Twitch Finland</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@400;600&display=swap');
+
+  /* Perusasetukset */
   body {
     margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #0d1117;
-    color: white;
-    overflow-x: hidden;
-    position: relative;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #0d0f17, #1a1c29);
+    color: #ddd;
     min-height: 100vh;
+    overflow-x: hidden;
   }
 
-  /* Partikkelitausta */
-  #particles {
+  /* Yläbanneri, neon-tyyli */
+  #top-banner {
     position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    pointer-events: none;
-    z-index: 0;
-  }
-  .particle {
-    position: absolute;
-    border-radius: 50%;
-    background: rgba(74, 222, 128, 0.3);
-    animation-timing-function: linear;
-    opacity: 0.6;
-  }
-
-  /* Grid kontti */
-  #streamer-list {
-    position: relative;
-    z-index: 1;
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
-    gap: 1.5rem;
-  }
-
-  /* Kortit */
-  .card {
-    position: relative;
-    border-radius: 1.5rem;
-    padding: 2rem 1.5rem;
-    box-shadow: 0 0 15px rgba(74, 222, 128, 0.3);
+    top: 0; left: 0; right: 0;
+    height: 45px;
+    background: #9147ff;
+    background: linear-gradient(90deg, #9147ff 0%, #6a0dad 50%, #9147ff 100%);
+    color: #fff;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
     text-align: center;
-    backdrop-filter: blur(8px);
-    background: rgba(74, 222, 128, 0.15);
-    color: white;
-    cursor: default;
-    transform: translateY(15px);
-    opacity: 0;
-    animation-fill-mode: forwards;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    user-select: none;
+    line-height: 45px;
+    z-index: 1000;
+    overflow: hidden;
+    white-space: nowrap;
   }
-  .card:hover {
-    transform: translateY(0) scale(1.05);
-    box-shadow: 0 0 35px rgba(74, 222, 128, 0.6);
+
+  #top-banner span {
+    display: inline-block;
+    padding-left: 100%;
+    animation: marquee 15s linear infinite;
+  }
+  @keyframes marquee {
+    0%   { transform: translateX(0%); }
+    100% { transform: translateX(-100%); }
+  }
+
+  /* Sivun pääotsikko */
+  header h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    font-size: 3rem;
+    color: #9147ff;
+    text-align: center;
+    padding: 60px 20px 30px;
+    text-shadow: 0 0 8px #9147ff88;
+  }
+
+  /* Hakukenttä */
+  #search {
+    display: block;
+    max-width: 400px;
+    margin: 0 auto 40px;
+    padding: 15px 20px;
+    font-size: 1.1rem;
+    border-radius: 12px;
+    border: none;
+    background-color: #2d2f47;
+    color: #eee;
+    box-shadow: 0 0 15px #9147ff44;
+    transition: box-shadow 0.3s ease;
+  }
+  #search::placeholder {
+    color: #aaa;
+  }
+  #search:focus {
+    outline: none;
+    box-shadow: 0 0 25px #9147ffbb;
+    background-color: #393b5a;
+  }
+
+  /* Grid container */
+  #streamer-list {
+    display: grid;
+    max-width: 1200px;
+    margin: 0 auto 80px;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    padding: 0 15px;
     z-index: 10;
   }
 
-  /* Animaatio kortille */
-  @keyframes fadeInUp {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  /* Kortit - striimaajaboxit */
+  .card {
+    background: linear-gradient(145deg, #1a1c29, #11141f);
+    border-radius: 25px;
+    padding: 2rem 1.5rem;
+    box-shadow: 0 8px 30px rgba(145, 71, 255, 0.5);
+    color: #eee;
+    text-align: center;
+    user-select: none;
+    transition: transform 0.4s cubic-bezier(.25,.8,.25,1), box-shadow 0.4s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .card:hover {
+    transform: scale(1.07);
+    box-shadow: 0 12px 60px rgba(145, 71, 255, 0.85);
+    z-index: 15;
   }
 
-  /* Hieman eri värit kortteihin */
+  /* Korttien värit (hillityt, himmeät) */
   .color-j1mppaz {
-    background: linear-gradient(135deg, rgba(74,222,128,0.25), rgba(16,185,129,0.4));
-    box-shadow: 0 0 25px rgba(74, 222, 128, 0.7);
+    background: linear-gradient(145deg, #2a3342, #221f44);
+    box-shadow: 0 0 20px #9147ff99;
   }
   .color-skotti {
-    background: linear-gradient(135deg, rgba(96,165,250,0.25), rgba(59,130,246,0.4));
-    box-shadow: 0 0 25px rgba(59,130,246,0.7);
+    background: linear-gradient(145deg, #1f2f3f, #223344);
+    box-shadow: 0 0 20px #6a0dad99;
   }
   .color-gargee {
-    background: linear-gradient(135deg, rgba(240,171,252,0.25), rgba(191,90,242,0.4));
-    box-shadow: 0 0 25px rgba(191,90,242,0.7);
+    background: linear-gradient(145deg, #3f2f42, #442244);
+    box-shadow: 0 0 20px #bb33ff99;
   }
   .color-lewaaw {
-    background: linear-gradient(135deg, rgba(252,165,165,0.25), rgba(239,68,68,0.4));
-    box-shadow: 0 0 25px rgba(239,68,68,0.7);
+    background: linear-gradient(145deg, #3f2a2a, #442222);
+    box-shadow: 0 0 20px #ff336699;
   }
   .color-novicci {
-    background: linear-gradient(135deg, rgba(253,224,71,0.25), rgba(202,138,4,0.4));
-    box-shadow: 0 0 25px rgba(202,138,4,0.7);
-    color: #1a1a1a;
+    background: linear-gradient(145deg, #44422f, #443f22);
+    box-shadow: 0 0 20px #ffd63399;
+    color: #eee;
   }
   .color-hukkaw {
-    background: linear-gradient(135deg, rgba(147,197,253,0.25), rgba(59,130,246,0.4));
-    box-shadow: 0 0 25px rgba(59,130,246,0.7);
+    background: linear-gradient(145deg, #2f3f42, #224344);
+    box-shadow: 0 0 20px #33ccff99;
   }
 
-  /* Nappi */
-  .btn-twitch {
-    background: #4ade80;
-    color: #1a1a1a;
-    padding: 0.7rem 1.6rem;
-    border-radius: 0.8rem;
-    font-weight: 600;
-    margin-top: 1.5rem;
-    display: inline-block;
-    box-shadow: 0 4px 12px #4ade8077;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    cursor: pointer;
-    text-decoration: none;
-    user-select: none;
-  }
-  .btn-twitch:hover {
-    background-color: #22c55e;
-    transform: scale(1.1);
+  /* Nimi */
+  .card h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    font-size: 2rem;
+    margin-bottom: 0.6rem;
+    user-select: text;
   }
 
   /* Live status */
   .live-status {
-    font-weight: 700;
-    padding: 0.3rem 0.8rem;
-    border-radius: 9999px;
-    font-size: 1rem;
     display: inline-block;
-    margin-bottom: 1rem;
-    box-shadow: 0 0 10px;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 6px 16px;
+    border-radius: 9999px;
+    margin-bottom: 1.5rem;
+    letter-spacing: 1.1px;
     text-transform: uppercase;
     user-select: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
   .live-status.live {
     background-color: #dc2626;
     color: white;
-    box-shadow: 0 0 20px #dc2626bb;
+    box-shadow: 0 0 20px #dc2626cc;
   }
   .live-status.offline {
-    background-color: transparent;
-    color: #94a3b8;
-    text-shadow: 0 0 6px #000000cc;
+    background-color: #333b55;
+    color: #9ca3af;
+    box-shadow: none;
   }
 
-  /* Header */
-  h1 {
-    font-size: 2.75rem;
-    font-weight: 900;
-    margin-bottom: 2rem;
-    text-align: center;
-    color: #4ade80;
-    text-shadow: 0 0 8px #4ade80bb;
-    user-select: none;
-  }
-
-  /* Search */
-  #search {
-    width: 100%;
-    padding: 1rem;
-    border-radius: 1rem;
-    border: none;
-    background-color: #161b22;
+  /* Linkki nappi */
+  .btn-twitch {
+    background-color: #9147ff;
     color: white;
-    font-size: 1.1rem;
-    margin-bottom: 2rem;
-    box-shadow: 0 0 8px #4ade80bb;
-    outline-offset: 2px;
+    padding: 12px 28px;
+    border-radius: 30px;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 0 25px #9147ff88;
+    display: inline-block;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
     user-select: none;
   }
-  #search::placeholder {
-    color: #94a3b8;
+  .btn-twitch:hover {
+    background-color: #6a0dad;
+    box-shadow: 0 0 50px #6a0dadcc;
+    transform: scale(1.1);
+  }
+
+  /* Partikkelitausta, yksinkertainen neon tyyli */
+  #particles {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .particle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: #9147ff;
+    border-radius: 50%;
+    opacity: 0.15;
+    filter: drop-shadow(0 0 5px #9147ff);
+    animation-name: floatParticle;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+  }
+  @keyframes floatParticle {
+    0%, 100% {
+      transform: translateY(0) translateX(0);
+      opacity: 0.15;
+    }
+    50% {
+      transform: translateY(-10px) translateX(5px);
+      opacity: 0.3;
+    }
+  }
+
+  /* YouTube-osio */
+  #youtube-section {
+    max-width: 1100px;
+    margin: 0 auto 100px;
+    padding: 0 15px;
+    z-index: 10;
+  }
+  #youtube-section h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    font-size: 2.5rem;
+    color: #9147ff;
+    text-align: center;
+    margin-bottom: 40px;
+    text-shadow: 0 0 10px #9147ff88;
+  }
+
+  /* YouTube videoiden grid */
+  .youtube-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 28px;
+  }
+  .youtube-video {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(145, 71, 255, 0.6);
+    transition: box-shadow 0.3s ease;
+  }
+  .youtube-video iframe {
+    width: 100%;
+    height: 180px;
+  }
+  .youtube-video:hover {
+    box-shadow: 0 12px 40px rgba(145, 71, 255, 0.85);
   }
 
   /* Footer */
   footer {
     text-align: center;
-    padding: 1rem;
     color: #555;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
+    padding: 20px 10px;
     user-select: none;
+  }
+
+  /* Responsive tweaks */
+  @media (max-width: 500px) {
+    .card h2 {
+      font-size: 1.6rem;
+    }
+    #top-banner {
+      font-size: 0.9rem;
+      height: 35px;
+      line-height: 35px;
+    }
+    #youtube-section h2 {
+      font-size: 1.8rem;
+      margin-bottom: 30px;
+    }
+    #youtube-section iframe {
+      height: 160px;
+    }
   }
 </style>
 </head>
 <body>
 
-<h1>🇫🇮 Suomalaiset Twitch-striimaajat</h1>
+<div id="top-banner"><span>🔥 SUOMALAISET STRIIMAAJAT - TUNNISTA LIVE & OFFLINE - Twitch Finland 🔥</span></div>
+
+<header>
+  <h1>Suomalaiset Twitch-striimaajat</h1>
+</header>
+
 <input id="search" placeholder="Etsi striimaajaa..." autocomplete="off" />
 
-<div id="streamer-list"></div>
+<section id="streamer-list"></section>
+
+<section id="youtube-section">
+  <h2>Suomalaisia Twitch- ja pelivideoita</h2>
+  <div class="youtube-grid" id="youtube-videos">
+    <!-- YouTube videot generoidaan JS:llä -->
+  </div>
+</section>
 
 <div id="particles"></div>
 
-<footer>© 2025 J1mPPaZ & Co</footer>
+<footer>© 2025 J1mPPaZ & Co — Kiitos kun katsoit!</footer>
 
 <script>
+  // Twitch-striimaajat
   const streamers = [
     { name: 'J1mPPaZ', twitchId: 'j1mppaz', colorClass: 'color-j1mppaz' },
     { name: 'Skotti', twitchId: 'skotti', colorClass: 'color-skotti' },
@@ -214,82 +333,32 @@
     }
   }
 
-  function createParticle() {
-    const particle = document.createElement('div');
-    particle.classList.add('particle');
-    const size = Math.random() * 6 + 4;
-    particle.style.width = size + 'px';
-    particle.style.height = size + 'px';
-    particle.style.top = Math.random() * window.innerHeight + 'px';
-    particle.style.left = Math.random() * window.innerWidth + 'px';
-    particle.style.animationDuration = (Math.random() * 20 + 10) + 's';
-    particle.style.animationName = 'moveParticle';
-    particle.style.opacity = 0.2 + Math.random() * 0.4;
-    return particle;
-  }
-
-  function initParticles() {
-    const container = document.getElementById('particles');
-    const particleCount = 60;
-    for(let i = 0; i < particleCount; i++) {
-      const p = createParticle();
-      container.appendChild(p);
-      animateParticle(p);
-    }
-  }
-
-  function animateParticle(particle) {
-    const xStart = parseFloat(particle.style.left);
-    const yStart = parseFloat(particle.style.top);
-    const xEnd = xStart + (Math.random() * 100 - 50);
-    const yEnd = yStart + (Math.random() * 100 - 50);
-    let start = null;
-
-    function step(timestamp) {
-      if (!start) start = timestamp;
-      const progress = (timestamp - start) / (parseFloat(particle.style.animationDuration) * 1000);
-      if (progress < 1) {
-        const x = xStart + (xEnd - xStart) * progress;
-        const y = yStart + (yEnd - yStart) * progress;
-        particle.style.left = x + 'px';
-        particle.style.top = y + 'px';
-        requestAnimationFrame(step);
-      } else {
-        // Reset start position and animate again
-        particle.style.left = xEnd + 'px';
-        particle.style.top = yEnd + 'px';
-        animateParticle(particle);
-      }
-    }
-    requestAnimationFrame(step);
-  }
-
   function createStreamerCard(s, index) {
     const card = document.createElement('div');
     card.className = `card ${s.colorClass}`;
     card.setAttribute('data-name', s.name.toLowerCase());
-    card.style.animation = `fadeInUp 0.6s ease forwards`;
-    card.style.animationDelay = (index * 0.2) + 's';
 
+    // Live-status
     const liveStatus = document.createElement('div');
     liveStatus.classList.add('live-status');
     liveStatus.textContent = 'Ladataan...';
     card.appendChild(liveStatus);
 
+    // Nimi
     const nameElem = document.createElement('h2');
     nameElem.textContent = s.name;
-    nameElem.style.fontWeight = '900';
-    nameElem.style.fontSize = '1.5rem';
     card.appendChild(nameElem);
 
+    // Twitch-linkki
     const twitchLink = document.createElement('a');
     twitchLink.href = `https://www.twitch.tv/${s.twitchId}`;
     twitchLink.target = '_blank';
+    twitchLink.rel = 'noopener noreferrer';
     twitchLink.className = 'btn-twitch';
     twitchLink.textContent = 'Katso Twitchissä';
     card.appendChild(twitchLink);
 
-    // Fetch live status asynchronously
+    // Hae live-tila
     fetchStreamData(s.twitchId).then(data => {
       if(data.isLive) {
         liveStatus.textContent = `LIVE – ${data.viewers ?? '–'} katsojaa`;
@@ -309,7 +378,45 @@
     return card;
   }
 
+  // Random YouTube-videoita suomalaisilta kanavilta
+  const youtubeVideos = [
+    { id: 'qkQU_HlCpqQ', title: 'Nadeshot – PUBG Stream' },
+    { id: 'i1xv1S7S04s', title: 'Suomalainen pelistriimaaja – Parhaat hetket' },
+    { id: 'R7lHhwNgsGo', title: 'Ala näytä Twitchissä - suomalainen pelaaja' },
+    { id: 'XJjU15xzX00', title: 'Minecraft Suomi – Hauskat hetket' },
+    { id: 'SnKPZ3HC1D4', title: 'Suomalainen esports-tiimi – highlights' },
+  ];
+
+  function createYoutubeEmbed(video) {
+    const container = document.createElement('div');
+    container.className = 'youtube-video';
+    container.title = video.title;
+
+    const iframe = document.createElement('iframe');
+    iframe.src = `https://www.youtube-nocookie.com/embed/${video.id}`;
+    iframe.title = video.title;
+    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+    iframe.allowFullscreen = true;
+
+    container.appendChild(iframe);
+    return container;
+  }
+
+  function initParticles() {
+    const container = document.getElementById('particles');
+    const count = 40;
+    for(let i=0; i<count; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'particle';
+      particle.style.left = (Math.random() * window.innerWidth) + 'px';
+      particle.style.top = (Math.random() * window.innerHeight) + 'px';
+      particle.style.animationDuration = (3 + Math.random() * 4) + 's';
+      container.appendChild(particle);
+    }
+  }
+
   window.onload = () => {
+    // Streamer-listan luonti
     const list = document.getElementById('streamer-list');
     streamers.forEach((s, i) => {
       const card = createStreamerCard(s, i);
@@ -318,12 +425,18 @@
 
     // Haku
     const searchInput = document.getElementById('search');
-    searchInput.addEventListener('input', (e) => {
+    searchInput.addEventListener('input', e => {
       const val = e.target.value.toLowerCase();
       for (const card of list.children) {
         const name = card.getAttribute('data-name');
         card.style.display = name.includes(val) ? '' : 'none';
       }
+    });
+
+    // YouTube videot
+    const ytContainer = document.getElementById('youtube-videos');
+    youtubeVideos.forEach(v => {
+      ytContainer.appendChild(createYoutubeEmbed(v));
     });
 
     initParticles();
