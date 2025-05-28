@@ -15,9 +15,9 @@
     color: #ddd;
     min-height: 100vh;
     overflow-x: hidden;
+    position: relative;
   }
 
-  /* Top banner */
   #top-banner {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -35,7 +35,6 @@
     overflow: hidden;
     white-space: nowrap;
   }
-
   #top-banner span {
     display: inline-block;
     padding-left: 100%;
@@ -56,7 +55,6 @@
     text-shadow: 0 0 8px #9147ff88;
   }
 
-  /* Navigaatio */
   nav {
     display: flex;
     justify-content: center;
@@ -132,8 +130,6 @@
     box-shadow: 0 12px 60px rgba(145, 71, 255, 0.85);
     z-index: 15;
   }
-
-  /* Korttien värit */
   .color-j1mppaz {
     background: linear-gradient(145deg, #2a3342, #221f44);
     box-shadow: 0 0 20px #9147ff99;
@@ -238,47 +234,104 @@
     }
   }
 
-  /* Follow J1mPPaZ teksti */
+  /* Follow-text pienennetty ja piilotettu alareunaan */
   #follow-text {
-    text-align: center;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
     font-family: 'Orbitron', sans-serif;
-    font-weight: 900;
-    font-size: 2rem;
-    color: #ff61a6;
-    margin-bottom: 60px;
-    text-shadow:
-      0 0 8px #ff61a6,
-      0 0 20px #ff61a6,
-      0 0 40px #ff61a6;
-    animation: pulseGlow 3s infinite alternate ease-in-out;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: #9147ffcc;
+    text-shadow: 0 0 6px #9147ff88;
+    cursor: pointer;
     user-select: none;
+    z-index: 1001;
+    transition: color 0.3s ease;
   }
-  @keyframes pulseGlow {
-    0% {
-      text-shadow:
-        0 0 6px #ff61a6,
-        0 0 14px #ff61a6,
-        0 0 25px #ff61a6;
-      color: #ff4d94;
-    }
-    100% {
-      text-shadow:
-        0 0 20px #ff61a6,
-        0 0 40px #ff61a6,
-        0 0 60px #ff61a6;
-      color: #ff7abb;
-    }
+  #follow-text:hover {
+    color: #ff61a6;
+    text-shadow: 0 0 10px #ff61a6;
   }
 
-  /* Sisältö sivuille */
+  /* Sivujen sisältö */
   #content {
-    max-width: 960px;
+    max-width: 900px;
     margin: 0 auto 60px;
     padding: 0 20px;
-    color: #ccc;
-    font-size: 1.1rem;
-    line-height: 1.5;
+    color: #ddd;
+    font-size: 1.15rem;
+    line-height: 1.6;
     user-select: text;
+    z-index: 10;
+  }
+
+  /* BOX-tyyli sivuille */
+  .info-box {
+    background: linear-gradient(145deg, #1a1c29, #11141f);
+    border-radius: 24px;
+    padding: 2rem 2.5rem;
+    box-shadow: 0 0 30px #9147ffaa;
+    margin-bottom: 40px;
+    color: #eee;
+    user-select: text;
+    border: 2px solid #9147ff;
+  }
+  .info-box h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: #ff61a6;
+    text-shadow: 0 0 8px #ff61a6cc;
+  }
+  .info-box p {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #ccc;
+  }
+  .info-box a {
+    color: #9147ff;
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.3s ease;
+  }
+  .info-box a:hover {
+    color: #ff61a6;
+  }
+
+  /* Twitch-logo tyyli */
+  .twitch-logo {
+    width: 48px;
+    vertical-align: middle;
+    margin-right: 12px;
+    filter: drop-shadow(0 0 6px #9147ffcc);
+  }
+
+  /* Lista työkaluille */
+  ul.tools-list {
+    list-style: none;
+    padding-left: 0;
+  }
+  ul.tools-list li {
+    background: #22253a;
+    margin-bottom: 14px;
+    padding: 14px 18px;
+    border-radius: 16px;
+    box-shadow: 0 0 15px #9147ff55;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease;
+  }
+  ul.tools-list li:hover {
+    background-color: #3c1c8d;
+  }
+  ul.tools-list li a {
+    color: #d6bcff;
+    text-decoration: none;
+  }
+  ul.tools-list li a:hover {
+    color: #ff61a6;
   }
 
 </style>
@@ -300,7 +353,7 @@
 
 <input id="search" type="text" placeholder="Etsi striimaajaa..." aria-label="Etsi striimaajaa">
 
-<div id="follow-text">Follow J1mPPaZ in Twitch!</div>
+<div id="follow-text" title="Seuraa J1mPPaZ Twitchissä!">Follow J1mPPaZ in Twitch!</div>
 
 <section id="streamer-list" aria-live="polite" aria-atomic="true">
   <!-- Streamerit ilmestyvät tänne -->
@@ -351,7 +404,7 @@
     const followText = document.getElementById('follow-text');
     const searchInput = document.getElementById('search');
 
-    // Reset visible UI
+    // Reset UI
     searchInput.style.display = 'none';
     list.style.display = 'none';
     content.style.display = 'block';
@@ -367,35 +420,44 @@
 
       case 'tips':
         content.innerHTML = `
-          <h2>Striimausvinkkejä aloittelijoille</h2>
-          <ul>
-            <li>Pidä streamisi säännöllisenä ja vuorovaikutteisena.</li>
-            <li>Panosta äänenlaatuun ja kameraan.</li>
-            <li>Ole oma itsesi ja luo oma tyyli.</li>
-            <li>Käytä Twitchin chat- ja moderaatiotyökaluja tehokkaasti.</li>
-            <li>Muista pitää taukoja ja huolehtia jaksamisesta.</li>
-          </ul>
+          <div class="info-box">
+            <h2>Striimausvinkkejä aloittelijoille</h2>
+            <ul>
+              <li>Pidä streamisi säännöllisenä ja vuorovaikutteisena.</li>
+              <li>Panosta äänenlaatuun ja kameraan.</li>
+              <li>Ole oma itsesi ja luo oma tyyli.</li>
+              <li>Käytä Twitchin chat- ja moderaatiotyökaluja tehokkaasti.</li>
+              <li>Muista pitää taukoja ja huolehtia jaksamisesta.</li>
+            </ul>
+          </div>
         `;
         break;
 
       case 'tools':
         content.innerHTML = `
-          <h2>Hyödyllisiä työkaluja striimaajille</h2>
-          <ul>
-            <li><a href="https://obsproject.com/" target="_blank" rel="noopener noreferrer">OBS Studio</a> – suosittu ilmainen striimausohjelma.</li>
-            <li><a href="https://streamlabs.com/" target="_blank" rel="noopener noreferrer">Streamlabs</a> – helppo ja monipuolinen striimausalusta.</li>
-            <li><a href="https://nightdev.com/" target="_blank" rel="noopener noreferrer">Nightbot</a> – automaattinen chat-botti.</li>
-            <li><a href="https://streamelements.com/" target="_blank" rel="noopener noreferrer">StreamElements</a> – overlays ja chat-työkalut.</li>
-            <li><a href="https://twitchtracker.com/" target="_blank" rel="noopener noreferrer">TwitchTracker</a> – analytiikkaa striimeistäsi.</li>
-          </ul>
+          <div class="info-box">
+            <h2>Hyödyllisiä työkaluja striimaajille</h2>
+            <ul class="tools-list">
+              <li><a href="https://obsproject.com/" target="_blank" rel="noopener noreferrer">OBS Studio</a> – suosittu ilmainen striimausohjelma.</li>
+              <li><a href="https://streamlabs.com/" target="_blank" rel="noopener noreferrer">Streamlabs</a> – helppo ja monipuolinen striimausalusta.</li>
+              <li><a href="https://nightdev.com/" target="_blank" rel="noopener noreferrer">Nightbot</a> – automaattinen chat-botti.</li>
+              <li><a href="https://streamelements.com/" target="_blank" rel="noopener noreferrer">StreamElements</a> – overlays ja chat-työkalut.</li>
+              <li><a href="https://twitchtracker.com/" target="_blank" rel="noopener noreferrer">TwitchTracker</a> – analytiikkaa striimeistäsi.</li>
+            </ul>
+          </div>
         `;
         break;
 
       case 'about':
         content.innerHTML = `
-          <h2>Tietoa Twitchistä</h2>
-          <p>Twitch on maailman suurin striimausalusta, jossa pelaajat, taiteilijat ja muut sisällöntuottajat voivat suoratoistaa sisältöään reaaliajassa. Se on suosittu etenkin peliyhteisöissä, mutta sen sisältövalikoima on laajentunut paljon.</p>
-          <p>Twitchissä voi seurata live-striimejä, osallistua chat-keskusteluun ja luoda omaa yhteisöään.</p>
+          <div class="info-box" style="display:flex; align-items:center; gap:16px;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Twitch_logo_2019.svg/1024px-Twitch_logo_2019.svg.png" alt="Twitch-logo" class="twitch-logo" />
+            <div>
+              <h2>Tietoa Twitchistä</h2>
+              <p>Twitch on maailman suurin live-striimausalusta, joka keskittyy erityisesti pelaajiin, taiteilijoihin ja erilaisiin sisällöntuottajiin. Alusta tarjoaa mahdollisuuden suoratoistaa videoita reaaliajassa ja olla vuorovaikutuksessa katsojien kanssa chatin kautta.</p>
+              <p>Twitch tarjoaa työkalut moderaatioon, yhteisön rakentamiseen ja sisällön kaupallistamiseen. Se on olennainen osa modernia striimauskulttuuria.</p>
+            </div>
+          </div>
         `;
         break;
     }
@@ -412,33 +474,34 @@
       btn.addEventListener('click', () => {
         navButtons.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-        showPage(btn.getAttribute('data-page'));
+        showPage(btn.dataset.page);
       });
     });
 
     document.getElementById('search').addEventListener('input', e => {
-      const val = e.target.value.toLowerCase();
-      for (const card of list.children) {
+      const query = e.target.value.toLowerCase();
+      document.querySelectorAll('#streamer-list .card').forEach(card => {
         const name = card.getAttribute('data-name');
-        card.style.display = name.includes(val) ? '' : 'none';
-      }
+        card.style.display = name.includes(query) ? 'block' : 'none';
+      });
     });
 
     showPage('home');
 
-    // Partikkelit
+    // Particle effect
+    const particleCount = 70;
     const container = document.getElementById('particles');
-    const count = 40;
-    for(let i=0; i<count; i++) {
-      const particle = document.createElement('div');
-      particle.className = 'particle';
-      particle.style.left = (Math.random() * window.innerWidth) + 'px';
-      particle.style.top = (Math.random() * window.innerHeight) + 'px';
-      particle.style.animationDuration = (3 + Math.random() * 4) + 's';
-      container.appendChild(particle);
+    for(let i = 0; i < particleCount; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.style.left = Math.random() * 100 + 'vw';
+      p.style.top = Math.random() * 100 + 'vh';
+      p.style.width = p.style.height = (Math.random() * 5 + 4) + 'px';
+      p.style.animationDuration = (Math.random() * 6 + 5) + 's';
+      p.style.animationDelay = (Math.random() * 5) + 's';
+      container.appendChild(p);
     }
   };
 </script>
-
 </body>
 </html>
