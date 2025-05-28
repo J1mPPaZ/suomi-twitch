@@ -1,277 +1,293 @@
 <!DOCTYPE html>
 <html lang="fi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Suomalaiset Twitch-striimaajat</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Unelma Twitch-sivusto | Streamaajat</title>
+<style>
+  /* === Yleiset tyylit === */
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap');
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
 
-    body {
-      background: linear-gradient(135deg, #120f2c, #1a1c29);
-      font-family: 'Orbitron', sans-serif;
-      color: #ddd;
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-      overflow-x: hidden;
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #0e0e10;
+    color: #e1e1e1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+  }
+
+  h1 {
+    font-size: 3.6rem;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #9147ff;
+    text-shadow: 0 0 8px #9147ff88;
+  }
+
+  /* === Streamaajat-osio === */
+  .streamers-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+    max-width: 1200px;
+    width: 100%;
+  }
+
+  .streamer-card {
+    background: linear-gradient(135deg, #1f1f24, #2b2b36);
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(145, 71, 255, 0.3);
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+
+  .streamer-card:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 8px 40px #9147ffcc;
+  }
+
+  .streamer-banner {
+    width: 100%;
+    height: 180px;
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.75);
+    transition: filter 0.3s ease;
+  }
+
+  .streamer-card:hover .streamer-banner {
+    filter: brightness(1);
+  }
+
+  .streamer-info {
+    padding: 20px 24px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .streamer-name {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #9147ff;
+    margin-bottom: 8px;
+  }
+
+  .streamer-desc {
+    font-size: 1rem;
+    line-height: 1.4;
+    color: #ccc;
+    margin-bottom: 20px;
+    min-height: 72px;
+  }
+
+  .streamer-link {
+    text-decoration: none;
+    color: #9147ff;
+    font-weight: 600;
+    font-size: 1.1rem;
+    border: 2px solid #9147ff;
+    padding: 10px 18px;
+    border-radius: 9999px;
+    text-align: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    user-select: none;
+  }
+
+  .streamer-link:hover {
+    background-color: #9147ff;
+    color: #fff;
+  }
+
+  /* === Animaatio efektit === */
+  @keyframes glowPulse {
+    0%, 100% {
+      box-shadow: 0 0 12px #9147ff99;
     }
-
-    #top-banner {
-      background: #9147ffcc;
-      text-align: center;
-      color: #fff;
-      font-weight: 700;
-      padding: 0.6rem 1rem;
-      font-size: 1rem;
-      letter-spacing: 0.04em;
-      user-select: none;
-      text-transform: uppercase;
-      box-shadow: 0 0 15px #9147ff88;
+    50% {
+      box-shadow: 0 0 20px #bb84ffcc;
     }
+  }
 
-    header {
-      text-align: center;
-      padding: 1.8rem 1rem 1rem;
-      font-size: 2.8rem;
-      font-weight: 900;
-      color: #ff61a6;
-      text-shadow: 0 0 12px #ff61a6cc;
-    }
+  .glow {
+    animation: glowPulse 3s infinite;
+  }
 
-    nav {
-      display: flex;
+  /* === Responsiivisuus === */
+  @media (max-width: 1024px) {
+    .streamers-container {
       justify-content: center;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-      flex-wrap: wrap;
-      user-select: none;
-    }
-
-    nav button {
-      background: transparent;
-      border: 2px solid #9147ff;
-      color: #9147ff;
-      padding: 0.5rem 1.3rem;
-      border-radius: 12px;
-      font-weight: 700;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    nav button:hover {
-      background: #ff61a6;
-      border-color: #ff61a6;
-      color: #fff;
-      box-shadow: 0 0 10px #ff61a6cc;
-    }
-
-    nav button.active {
-      background: #9147ff;
-      border-color: #9147ff;
-      color: #fff;
-      box-shadow: 0 0 15px #9147ffaa;
-      cursor: default;
-    }
-
-    #search {
-      display: block;
-      margin: 0 auto 2rem auto;
-      max-width: 400px;
-      width: 90%;
-      background: #22253a;
-      border: none;
-      border-radius: 16px;
-      padding: 0.75rem 1rem;
-      color: #ddd;
-      font-size: 1rem;
-      box-shadow: 0 0 15px #9147ff55 inset;
-      transition: box-shadow 0.3s ease;
-    }
-
-    #search:focus {
-      box-shadow: 0 0 20px #ff61a6cc inset;
-      outline: none;
-    }
-
-    #follow-text {
-      position: fixed;
-      bottom: 14px;
-      right: 16px;
-      font-family: 'Orbitron', sans-serif;
-      font-weight: 700;
-      font-size: 0.85rem;
-      color: #9147ffcc;
-      text-shadow: 0 0 6px #9147ff88;
-      cursor: pointer;
-      user-select: none;
-      z-index: 1001;
-      transition: color 0.3s ease;
-      opacity: 0.7;
-    }
-
-    #follow-text:hover {
-      color: #ff61a6;
-      text-shadow: 0 0 12px #ff61a6;
-      opacity: 1;
-    }
-
-    footer {
-      text-align: center;
-      padding: 1rem 0 1.5rem;
-      font-size: 0.9rem;
-      color: #9147ffbb;
-      user-select: none;
-    }
-
-    #streamer-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-      padding: 0 2rem 2rem;
     }
 
     .streamer-card {
-      background: #1f2235;
-      border-radius: 16px;
-      padding: 1rem;
-      box-shadow: 0 0 10px #9147ff55;
-      text-align: center;
-      transition: transform 0.3s ease;
+      width: 280px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    body {
+      padding: 20px 10px;
     }
 
-    .streamer-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 0 15px #ff61a688;
+    .streamer-card {
+      width: 100%;
     }
 
-    .streamer-card h3 {
-      margin-top: 0.5rem;
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: #ff61a6;
+    h1 {
+      font-size: 2.8rem;
     }
+  }
 
-    .streamer-card p {
-      margin: 0.2rem 0;
-      font-size: 0.95rem;
-      color: #bbb;
-    }
+  /* === Lisäefekti: Hover animation shake === */
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-5px); }
+    40%, 80% { transform: translateX(5px); }
+  }
 
-    .page {
-      display: none;
-    }
+  .streamer-link:hover {
+    animation: shake 0.4s ease;
+  }
 
-    .page.active {
-      display: block;
-    }
-  </style>
+  /* === Footer === */
+  footer {
+    margin-top: 60px;
+    font-size: 0.9rem;
+    color: #555;
+  }
+</style>
 </head>
 <body>
-  <div id="top-banner">Suomalaiset Twitch-striimaajat</div>
+  <h1>Unelma Twitch Streamaajat</h1>
 
-  <header>TopiaBets Twitch Suomi</header>
+  <div class="streamers-container" id="streamersContainer">
+    <!-- Streamer-kortit generoidaan JS:llä -->
+  </div>
 
-  <nav>
-    <button class="active" data-page="home">Kotisivu</button>
-    <button data-page="tools">Työkalut</button>
-    <button data-page="tips">Striimausvinkit</button>
-    <button data-page="about">Tietoa Twitchistä</button>
-  </nav>
+  <footer>
+    &copy; 2025 Unelma Twitch. Kaikki oikeudet pidätetään.
+  </footer>
 
-  <input type="text" id="search" placeholder="Etsi striimaajaa..." />
-
-  <main id="content">
-    <section id="home" class="page active">
-      <div id="streamer-list"></div>
-    </section>
-
-    <section id="tools" class="page">
-      <div class="info-box">
-        <h2>Työkalut striimaajille</h2>
-        <p>Lataa hyödyllisiä ohjelmia:</p>
-        <ul>
-          <li><a href="https://obsproject.com/" target="_blank">OBS Studio</a></li>
-          <li><a href="https://streamlabs.com/" target="_blank">Streamlabs</a></li>
-          <li><a href="https://streamelements.com/" target="_blank">StreamElements</a></li>
-        </ul>
-      </div>
-    </section>
-
-    <section id="tips" class="page">
-      <div class="info-box">
-        <h2>Striimausvinkit</h2>
-        <p>Ole aktiivinen ja oma itsesi. Hyvä ääni ja kuva tekevät vaikutuksen. Striimaa säännöllisesti!</p>
-      </div>
-    </section>
-
-    <section id="about" class="page">
-      <div class="info-box">
-        <h2>Tietoa Twitchistä</h2>
-        <p>Twitch on alusta live-striimaukseen. Suosittu erityisesti pelaamisen, musiikin ja keskustelujen parissa.</p>
-        <p><a href="https://www.twitch.tv/p/about" target="_blank">Lisätietoja Twitchistä</a></p>
-      </div>
-    </section>
-  </main>
-
-  <a href="https://www.twitch.tv/j1mppaz" id="follow-text" target="_blank">Seuraa J1mPPaZ Twitchissä!</a>
-
-  <script>
-    const striimaajat = [
-      { nimi: "j1mppaz", kuvaus: "Pelaamista, viihdettä ja TopiaBetsia", katsojat: 120 },
-      { nimi: "pelipate", kuvaus: "Suomi-pelit ja retrofiilistelyä", katsojat: 75 },
-      { nimi: "katjamari", kuvaus: "Just chatting, IRL ja reaktioita", katsojat: 90 },
-      { nimi: "noppaheero", kuvaus: "Roolipelejä ja lautapelejä livenä", katsojat: 45 },
-    ];
-
-    const hakukentta = document.getElementById("search");
-    const lista = document.getElementById("streamer-list");
-
-    function paivitaLista(haku = "") {
-      lista.innerHTML = "";
-      const suodatetut = striimaajat.filter(s =>
-        s.nimi.toLowerCase().includes(haku.toLowerCase())
-      );
-      if (suodatetut.length === 0) {
-        lista.innerHTML = "<p>Ei striimaajia löytynyt.</p>";
-        return;
-      }
-      suodatetut.forEach(s => {
-        const kortti = document.createElement("div");
-        kortti.className = "streamer-card";
-        kortti.innerHTML = `
-          <h3>${s.nimi}</h3>
-          <p>${s.kuvaus}</p>
-          <p>Katsojia: ${s.katsojat}</p>
-        `;
-        lista.appendChild(kortti);
-      });
+<script>
+  // === Streamaajat-data ===
+  const streamers = [
+    {
+      name: "J1mPPaZ",
+      twitchUrl: "https://www.twitch.tv/j1mppaz",
+      description: "Viimeisin live: \"Koodaus-maraton: full stack -projekti käynnissä!\"",
+      banner: "https://static-cdn.jtvnw.net/jtv_user_pictures/1a7f2fa8-32b2-4a4a-912b-d2f950b44167-profile_banner-480.png"
+    },
+    {
+      name: "Skotti",
+      twitchUrl: "https://www.twitch.tv/skotti",
+      description: "Viimeisin live: \"Co-op FPS - huippuhetkiä ja naurua!\"",
+      banner: "https://static-cdn.jtvnw.net/jtv_user_pictures/ba6ec3e5-f39a-4ca2-a8c3-b3a7ccbe23e1-profile_banner-480.png"
+    },
+    {
+      name: "Gargee",
+      twitchUrl: "https://www.twitch.tv/gargee",
+      description: "Viimeisin live: \"Speedrunning mestaruutta – uusimmat ennätykset!\"",
+      banner: "https://static-cdn.jtvnw.net/jtv_user_pictures/48f58a21-cce2-430e-aac3-0f2694472ef3-profile_banner-480.png"
+    },
+    {
+      name: "Lewaaw",
+      twitchUrl: "https://www.twitch.tv/lewaaw",
+      description: "Viimeisin live: \"Strategia-pelejä ja chillailua – tule mukaan!\"",
+      banner: "https://static-cdn.jtvnw.net/jtv_user_pictures/1b1531b9-f0cd-4d7e-933b-e87e29ff0d14-profile_banner-480.png"
+    },
+    {
+      name: "Novicci",
+      twitchUrl: "https://www.twitch.tv/novicci",
+      description: "Viimeisin live: \"Uusia pelejä ja community-tapahtumia - älä missaa!\"",
+      banner: "https://static-cdn.jtvnw.net/jtv_user_pictures/31a09f33-c024-48a4-9f22-f8aaf39dd0f7-profile_banner-480.png"
+    },
+    {
+      name: "Hukkaw",
+      twitchUrl: "https://www.twitch.tv/hukkaw",
+      description: "Viimeisin live: \"Rankat kilpailut ja mahtavat giveawayt!\"",
+      banner: "https://static-cdn.jtvnw.net/jtv_user_pictures/9e5e37a6-4124-4f12-8f4f-ff78eeb67281-profile_banner-480.png"
     }
+  ];
 
-    hakukentta.addEventListener("input", (e) => {
-      paivitaLista(e.target.value);
+  // === Luo streamer-kortit DOM:iin ===
+  const container = document.getElementById('streamersContainer');
+
+  streamers.forEach(streamer => {
+    const card = document.createElement('div');
+    card.className = 'streamer-card glow';
+
+    const banner = document.createElement('div');
+    banner.className = 'streamer-banner';
+    banner.style.backgroundImage = `url(${streamer.banner})`;
+
+    const info = document.createElement('div');
+    info.className = 'streamer-info';
+
+    const name = document.createElement('h2');
+    name.className = 'streamer-name';
+    name.textContent = streamer.name;
+
+    const desc = document.createElement('p');
+    desc.className = 'streamer-desc';
+    desc.textContent = streamer.description;
+
+    const link = document.createElement('a');
+    link.className = 'streamer-link';
+    link.href = streamer.twitchUrl;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.textContent = "Katso Twitchissä";
+
+    info.appendChild(name);
+    info.appendChild(desc);
+    info.appendChild(link);
+
+    card.appendChild(banner);
+    card.appendChild(info);
+
+    container.appendChild(card);
+  });
+
+  // === Lisäanimaatio: scrollissa fade-in ===
+  const cards = document.querySelectorAll('.streamer-card');
+
+  function isInViewport(el) {
+    const rect = el.getBoundingClientRect();
+    return (
+      rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+      rect.bottom >= 0
+    );
+  }
+
+  function revealCards() {
+    cards.forEach(card => {
+      if (isInViewport(card)) {
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+        card.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+      } else {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(40px)';
+      }
     });
+  }
 
-    // Navigointi
-    const navit = document.querySelectorAll("nav button");
-    const sivut = document.querySelectorAll(".page");
-
-    navit.forEach(nappi => {
-      nappi.addEventListener("click", () => {
-        navit.forEach(n => n.classList.remove("active"));
-        nappi.classList.add("active");
-
-        const valittu = nappi.dataset.page;
-        sivut.forEach(s => {
-          s.classList.toggle("active", s.id === valittu);
-        });
-      });
-    });
-
-    paivitaLista();
-  </script>
+  window.addEventListener('scroll', revealCards);
+  window.addEventListener('load', revealCards);
+</script>
 </body>
 </html>
