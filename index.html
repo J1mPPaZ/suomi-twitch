@@ -1,104 +1,213 @@
 <!DOCTYPE html>
 <html lang="fi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Suomalaiset Twitch-striimaajat</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            dark: '#1a1a1a',
-            accent: '#4ade80',
-          },
-          animation: {
-            fade: 'fadeIn 0.5s ease-in-out',
-          },
-          keyframes: {
-            fadeIn: {
-              '0%': { opacity: 0 },
-              '100%': { opacity: 1 },
-            },
-          },
-        },
-      },
-    };
-  </script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Suomalaiset Twitch-striimaajat</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  /* Taustagradient ja animointi */
+  body {
+    background: linear-gradient(-45deg, #0d1117, #161b22, #0d1117, #161b22);
+    background-size: 400% 400%;
+    animation: gradientBG 20s ease infinite;
+    overflow-x: hidden;
+  }
+  @keyframes gradientBG {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+  }
+
+  /* Leijuva partikkelit */
+  .particle {
+    position: fixed;
+    background: rgba(74, 222, 128, 0.4);
+    border-radius: 50%;
+    pointer-events: none;
+    animation-timing-function: ease-in-out;
+    opacity: 0.7;
+    filter: drop-shadow(0 0 4px #4ade80);
+  }
+
+  /* Kortti */
+  .streamer-card {
+    background: rgba(30, 41, 59, 0.85);
+    border-radius: 1.5rem;
+    box-shadow:
+      0 4px 30px rgba(74, 222, 128, 0.3);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(74, 222, 128, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+  .streamer-card:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow:
+      0 8px 40px rgba(74, 222, 128, 0.7);
+  }
+
+  /* Animointi fadein */
+  .fade-in {
+    animation: fadeInUp 0.6s ease forwards;
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Scrollbar tyylittely */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #161b22;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #4ade80;
+    border-radius: 10px;
+  }
+
+</style>
 </head>
-<body class="bg-dark text-white font-sans">
-  <div class="max-w-4xl mx-auto p-6">
-    <h1 class="text-3xl font-bold mb-6 text-center text-accent">🇫🇮 Suomalaiset Twitch-striimaajat</h1>
+<body class="text-white font-sans min-h-screen flex flex-col">
+
+  <div class="max-w-5xl mx-auto p-6 flex-grow">
+    <h1 class="text-4xl font-extrabold mb-8 text-center text-accent drop-shadow-lg">🇫🇮 Suomalaiset Twitch-striimaajat</h1>
 
     <input
       type="text"
       id="search"
       placeholder="Etsi striimaajaa..."
-      class="w-full p-3 mb-6 rounded-lg bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-accent"
+      class="w-full p-4 mb-8 rounded-xl bg-gray-900 text-white placeholder-gray-500 focus:outline-none focus:ring-4 focus:ring-accent transition"
+      autocomplete="off"
     />
 
-    <div id="streamer-list" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+    <div id="streamer-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+  </div>
 
-    <script>
-      const streamers = [
-        { name: 'J1mPPaZ', twitchId: 'j1mppaz' },
-        { name: 'Skotti', twitchId: 'skotti' },
-        { name: 'Gargee', twitchId: 'gargee' },
-        { name: 'Lewaaw', twitchId: 'lewaaw' },
-        { name: 'Novicci', twitchId: 'novicci' },
-        { name: 'Laeppavika', twitchId: 'laeppavika' },
-        { name: 'Hukkaw', twitchId: 'hukkaw' },
-      ];
+  <footer class="text-center text-gray-500 mb-6 select-none">© 2025 J1mPPaZ & Co</footer>
 
-      async function fetchStreamData(username) {
+  <script>
+    const streamers = [
+      { name: 'J1mPPaZ', twitchId: 'j1mppaz' },
+      { name: 'Skotti', twitchId: 'skotti' },
+      { name: 'Gargee', twitchId: 'gargee' },
+      { name: 'Lewaaw', twitchId: 'lewaaw' },
+      { name: 'Novicci', twitchId: 'novicci' },
+      { name: 'Laeppavika', twitchId: 'laeppavika' },
+      { name: 'Hukkaw', twitchId: 'hukkaw' },
+    ];
+
+    // Äänet (vapaa lähde: https://freesound.org, voit vaihtaa URLit tai korvata omilla)
+    const sounds = [
+      new Audio('https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg'),
+      new Audio('https://actions.google.com/sounds/v1/cartoon/wood_plank_flicks.ogg'),
+      new Audio('https://actions.google.com/sounds/v1/cartoon/pop.ogg'),
+    ];
+
+    async function fetchStreamData(username) {
+      try {
         const res = await fetch(`https://decapi.me/twitch/status/${username}`);
         const text = await res.text();
         const isLive = !text.includes('offline');
         const viewersMatch = text.match(/\((\d+)\s+katsojaa/);
         const viewers = viewersMatch ? viewersMatch[1] : null;
         return { isLive, viewers, statusText: text };
+      } catch {
+        return { isLive: false, viewers: null, statusText: 'Tietoja ei saatavilla' };
+      }
+    }
+
+    function playRandomSound() {
+      const sound = sounds[Math.floor(Math.random() * sounds.length)];
+      sound.currentTime = 0;
+      sound.play();
+    }
+
+    // Luo leijuva partikkeleita taustalle
+    function createParticles(count = 40) {
+      for (let i = 0; i < count; i++) {
+        const p = document.createElement('div');
+        p.classList.add('particle');
+        p.style.width = p.style.height = (5 + Math.random() * 10) + 'px';
+        p.style.left = Math.random() * window.innerWidth + 'px';
+        p.style.top = Math.random() * window.innerHeight + 'px';
+        p.style.animation = `float${i % 3} ${5 + Math.random() * 10}s ease-in-out infinite alternate`;
+        document.body.appendChild(p);
+      }
+    }
+    // Partikkelianimaatiot
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes float0 {
+        0% {transform: translateY(0);}
+        100% {transform: translateY(-40px);}
+      }
+      @keyframes float1 {
+        0% {transform: translateY(0);}
+        100% {transform: translateY(-60px);}
+      }
+      @keyframes float2 {
+        0% {transform: translateY(0);}
+        100% {transform: translateY(-50px);}
+      }
+    `;
+    document.head.appendChild(style);
+
+    window.onload = async () => {
+      createParticles();
+
+      const list = document.getElementById('streamer-list');
+
+      for (const [i, s] of streamers.entries()) {
+        const card = document.createElement('div');
+        card.className = 'streamer-card fade-in';
+        card.style.animationDelay = (i * 0.1) + 's';
+        card.setAttribute('data-name', s.name.toLowerCase());
+
+        const twitchURL = `https://www.twitch.tv/${s.twitchId}`;
+        const { isLive, viewers, statusText } = await fetchStreamData(s.twitchId);
+
+        card.innerHTML = `
+          <h2 class="text-2xl font-semibold text-accent mb-2">${s.name}</h2>
+          <p class="mb-2 text-sm italic">${statusText}</p>
+          ${
+            isLive
+              ? `<span class="bg-red-600 text-white text-sm px-3 py-1 rounded-full mb-4 inline-block shadow-lg">LIVE – ${
+                  viewers || '?'
+                } katsojaa</span>`
+              : `<span class="text-gray-400 text-sm mb-4 font-bold uppercase">OFFLINE-TILASSA</span>`
+          }
+          <button class="bg-accent text-dark px-5 py-3 rounded-lg font-semibold hover:bg-green-400 transition shadow-md w-full">Katso Twitchissä</button>
+        `;
+
+        // Klikkaussoitin ja linkki
+        const btn = card.querySelector('button');
+        btn.addEventListener('click', () => {
+          playRandomSound();
+          window.open(twitchURL, '_blank');
+        });
+
+        list.appendChild(card);
       }
 
-      window.onload = async () => {
-        const list = document.getElementById('streamer-list');
+      const searchInput = document.getElementById('search');
+      const streamerCards = list.children;
 
-        for (const s of streamers) {
-          const card = document.createElement('div');
-          card.className =
-            'bg-gray-800 p-4 rounded-2xl shadow-lg animate-fade flex flex-col items-center text-center transition transform hover:scale-105 duration-300';
-          card.setAttribute('data-name', s.name.toLowerCase());
-
-          const twitchURL = `https://www.twitch.tv/${s.twitchId}`;
-          const { isLive, viewers, statusText } = await fetchStreamData(s.twitchId);
-
-          card.innerHTML = `
-            <h2 class="text-xl font-semibold text-accent mb-2">${s.name}</h2>
-            <p class="mb-2 text-sm italic">${statusText}</p>
-            ${
-              isLive
-                ? `<span class="bg-red-500 text-white text-sm px-2 py-1 rounded mb-2">LIVE – ${
-                    viewers || '?'
-                  } katsojaa</span>`
-                : `<span class="text-gray-400 text-sm mb-2 font-bold uppercase">OFFLINE-TILASSA</span>`
-            }
-            <a href="${twitchURL}" target="_blank" class="bg-accent text-dark px-4 py-2 rounded-lg font-medium hover:bg-green-400 transition">Katso Twitchissä</a>
-          `;
-          list.appendChild(card);
+      searchInput.addEventListener('input', (e) => {
+        const value = e.target.value.toLowerCase();
+        for (let card of streamerCards) {
+          const name = card.dataset.name;
+          card.style.display = name.includes(value) ? '' : 'none';
         }
-
-        const searchInput = document.getElementById('search');
-        const streamerCards = list.children;
-
-        searchInput.addEventListener('input', (e) => {
-          const value = e.target.value.toLowerCase();
-          for (let card of streamerCards) {
-            const name = card.dataset.name;
-            card.style.display = name.includes(value) ? '' : 'none';
-          }
-        });
-      };
-    </script>
-  </div>
+      });
+    };
+  </script>
 </body>
 </html>
