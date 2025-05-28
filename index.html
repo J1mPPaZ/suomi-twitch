@@ -1,507 +1,485 @@
 <!DOCTYPE html>
 <html lang="fi">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Suomalaiset Twitch-striimaajat – Top Twitch Finland</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@400;600&display=swap');
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Suomalaiset Twitch-striimaajat</title>
 
-  body {
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #0d0f17, #1a1c29);
-    color: #ddd;
-    min-height: 100vh;
-    overflow-x: hidden;
-    position: relative;
-  }
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap');
 
-  #top-banner {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    height: 45px;
-    background: #9147ff;
-    background: linear-gradient(90deg, #9147ff 0%, #6a0dad 50%, #9147ff 100%);
-    color: #fff;
-    font-family: 'Orbitron', sans-serif;
-    font-weight: 700;
-    font-size: 1.1rem;
-    letter-spacing: 2px;
-    text-align: center;
-    line-height: 45px;
-    z-index: 1000;
-    overflow: hidden;
-    white-space: nowrap;
-  }
-  #top-banner span {
-    display: inline-block;
-    padding-left: 100%;
-    animation: marquee 15s linear infinite;
-  }
-  @keyframes marquee {
-    0%   { transform: translateX(0%); }
-    100% { transform: translateX(-100%); }
-  }
+    body {
+      background: linear-gradient(135deg, #120f2c, #1a1c29);
+      font-family: 'Orbitron', sans-serif;
+      color: #ddd;
+      margin: 0; padding: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    #top-banner {
+      background: #9147ffcc;
+      text-align: center;
+      color: #fff;
+      font-weight: 700;
+      padding: 0.6rem 1rem;
+      font-size: 1rem;
+      letter-spacing: 0.04em;
+      user-select: none;
+      text-transform: uppercase;
+      box-shadow: 0 0 15px #9147ff88;
+    }
+    header {
+      text-align: center;
+      padding: 1.8rem 1rem 1rem;
+      font-size: 2.8rem;
+      font-weight: 900;
+      color: #ff61a6;
+      text-shadow: 0 0 12px #ff61a6cc;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      user-select: none;
+      z-index: 1000;
+    }
+    nav button {
+      background: transparent;
+      border: 2px solid #9147ff;
+      color: #9147ff;
+      padding: 0.5rem 1.3rem;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    nav button:hover {
+      background: #ff61a6;
+      border-color: #ff61a6;
+      color: #fff;
+      box-shadow: 0 0 10px #ff61a6cc;
+    }
+    nav button.active {
+      background: #9147ff;
+      border-color: #9147ff;
+      color: #fff;
+      box-shadow: 0 0 15px #9147ffaa;
+      cursor: default;
+    }
 
-  header h1 {
-    font-family: 'Orbitron', sans-serif;
-    font-weight: 900;
-    font-size: 3rem;
-    color: #9147ff;
-    text-align: center;
-    padding: 60px 20px 30px;
-    text-shadow: 0 0 8px #9147ff88;
-  }
+    #search {
+      display: block;
+      margin: 0 auto 2rem auto;
+      max-width: 400px;
+      width: 90%;
+      background: #22253a;
+      border: none;
+      border-radius: 16px;
+      padding: 0.75rem 1rem;
+      color: #ddd;
+      font-size: 1rem;
+      box-shadow: 0 0 15px #9147ff55 inset;
+      transition: box-shadow 0.3s ease;
+      outline-offset: 2px;
+    }
+    #search:focus {
+      box-shadow: 0 0 20px #ff61a6cc inset;
+      outline: none;
+    }
 
-  nav {
-    display: flex;
-    justify-content: center;
-    gap: 24px;
-    margin-bottom: 40px;
-  }
-  nav button {
-    background: transparent;
-    border: 2px solid #9147ff;
-    border-radius: 30px;
-    padding: 10px 26px;
-    font-family: 'Orbitron', sans-serif;
-    font-weight: 700;
-    font-size: 1rem;
-    color: #9147ff;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    user-select: none;
-  }
-  nav button:hover,
-  nav button.active {
-    background-color: #9147ff;
-    color: #fff;
-    box-shadow: 0 0 15px #9147ffcc;
-  }
+    #follow-text {
+      position: fixed;
+      bottom: 14px;
+      right: 16px;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: #9147ffcc;
+      text-shadow: 0 0 6px #9147ff88;
+      cursor: pointer;
+      user-select: none;
+      z-index: 1001;
+      transition: color 0.3s ease;
+      opacity: 0.7;
+    }
+    #follow-text:hover {
+      color: #ff61a6;
+      text-shadow: 0 0 12px #ff61a6;
+      opacity: 1;
+    }
 
-  #search {
-    display: block;
-    max-width: 400px;
-    margin: 0 auto 40px;
-    padding: 15px 20px;
-    font-size: 1.1rem;
-    border-radius: 12px;
-    border: none;
-    background-color: #2d2f47;
-    color: #eee;
-    box-shadow: 0 0 15px #9147ff44;
-    transition: box-shadow 0.3s ease;
-  }
-  #search::placeholder {
-    color: #aaa;
-  }
-  #search:focus {
-    outline: none;
-    box-shadow: 0 0 25px #9147ffbb;
-    background-color: #393b5a;
-  }
+    #streamer-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+      gap: 2rem;
+      max-width: 980px;
+      margin: 0 auto 3rem;
+      padding: 0 1rem;
+      z-index: 10;
+    }
 
-  #streamer-list {
-    display: grid;
-    max-width: 1200px;
-    margin: 0 auto 80px;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 30px;
-    padding: 0 15px;
-    z-index: 10;
-  }
+    .card {
+      background: linear-gradient(145deg, #22253a, #1a1c29);
+      border-radius: 24px;
+      box-shadow: 0 0 25px #9147ffaa;
+      padding: 2rem 1.8rem;
+      color: #ddd;
+      user-select: text;
+      text-align: center;
+      position: relative;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      overflow: hidden;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 0 40px #ff61a6cc;
+      cursor: pointer;
+    }
 
-  .card {
-    background: linear-gradient(145deg, #1a1c29, #11141f);
-    border-radius: 25px;
-    padding: 2rem 1.5rem;
-    box-shadow: 0 8px 30px rgba(145, 71, 255, 0.5);
-    color: #eee;
-    text-align: center;
-    user-select: none;
-    transition: transform 0.4s cubic-bezier(.25,.8,.25,1), box-shadow 0.4s ease;
-    position: relative;
-    overflow: hidden;
-  }
-  .card:hover {
-    transform: scale(1.07);
-    box-shadow: 0 12px 60px rgba(145, 71, 255, 0.85);
-    z-index: 15;
-  }
-  .color-j1mppaz {
-    background: linear-gradient(145deg, #2a3342, #221f44);
-    box-shadow: 0 0 20px #9147ff99;
-  }
-  .color-skotti {
-    background: linear-gradient(145deg, #1f2f3f, #223344);
-    box-shadow: 0 0 20px #6a0dad99;
-  }
-  .color-gargee {
-    background: linear-gradient(145deg, #3f2f42, #442244);
-    box-shadow: 0 0 20px #bb33ff99;
-  }
-  .color-lewaaw {
-    background: linear-gradient(145deg, #3f2a2a, #442222);
-    box-shadow: 0 0 20px #ff336699;
-  }
-  .color-novicci {
-    background: linear-gradient(145deg, #44422f, #443f22);
-    box-shadow: 0 0 20px #ffd63399;
-    color: #eee;
-  }
-  .color-hukkaw {
-    background: linear-gradient(145deg, #2f3f42, #224344);
-    box-shadow: 0 0 20px #33ccff99;
-  }
+    .card img.profile-pic {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 3px solid #9147ff;
+      margin-bottom: 1rem;
+      object-fit: cover;
+      filter: drop-shadow(0 0 6px #9147ffcc);
+      transition: filter 0.3s ease;
+    }
+    .card:hover img.profile-pic {
+      filter: drop-shadow(0 0 12px #ff61a6cc);
+    }
 
-  .card h2 {
-    font-family: 'Orbitron', sans-serif;
-    font-weight: 900;
-    font-size: 2rem;
-    margin-bottom: 0.6rem;
-    user-select: text;
-  }
+    .card h2 {
+      font-size: 1.8rem;
+      margin: 0.4rem 0 0.6rem;
+      color: #ff61a6;
+      text-shadow: 0 0 10px #ff61a6cc;
+      font-weight: 900;
+      user-select: text;
+    }
 
-  .live-status {
-    display: inline-block;
-    font-weight: 700;
-    font-size: 1rem;
-    padding: 6px 16px;
-    border-radius: 9999px;
-    margin-bottom: 1.5rem;
-    letter-spacing: 1.1px;
-    text-transform: uppercase;
-    user-select: none;
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
-  .live-status.live {
-    background-color: #dc2626;
-    color: white;
-    box-shadow: 0 0 20px #dc2626cc;
-  }
-  .live-status.offline {
-    background-color: #333b55;
-    color: #9ca3af;
-    box-shadow: none;
-  }
+    .live-status {
+      font-weight: 700;
+      font-size: 1rem;
+      user-select: none;
+      padding: 0.3rem 0.7rem;
+      border-radius: 18px;
+      display: inline-block;
+      margin-top: 6px;
+      letter-spacing: 0.03em;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      box-shadow: 0 0 8px #000000aa inset;
+    }
+    .live-status.live {
+      background-color: #22c55e;
+      color: #f0fdf4;
+      box-shadow: 0 0 20px #22c55eaa;
+    }
+    .live-status.offline {
+      background-color: #6b7280;
+      color: #d1d5db;
+      box-shadow: 0 0 15px #6b7280aa;
+    }
 
-  .btn-twitch {
-    background-color: #9147ff;
-    color: white;
-    padding: 12px 28px;
-    border-radius: 30px;
-    font-weight: 700;
-    text-decoration: none;
-    box-shadow: 0 0 25px #9147ff88;
-    display: inline-block;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
-    user-select: none;
-  }
-  .btn-twitch:hover {
-    background-color: #6a0dad;
-    box-shadow: 0 0 50px #6a0dadcc;
-    transform: scale(1.1);
-  }
+    /* Color classes for each streamer for subtle glow */
+    .color-j1mppaz { box-shadow: 0 0 30px #ff61a6cc; }
+    .color-skotti { box-shadow: 0 0 30px #7c3aedcc; }
+    .color-gargee { box-shadow: 0 0 30px #10b981cc; }
+    .color-lewaaw { box-shadow: 0 0 30px #3b82f6cc; }
+    .color-novicci { box-shadow: 0 0 30px #f59e0bcc; }
+    .color-hukkaw { box-shadow: 0 0 30px #ec4899cc; }
 
-  #particles {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    z-index: 1;
-    pointer-events: none;
-  }
-  .particle {
-    position: absolute;
-    width: 6px;
-    height: 6px;
-    background: #9147ff;
-    border-radius: 50%;
-    opacity: 0.15;
-    filter: drop-shadow(0 0 5px #9147ff);
-    animation-name: floatParticle;
-    animation-timing-function: ease-in-out;
-    animation-iteration-count: infinite;
-  }
-  @keyframes floatParticle {
-    0%, 100% {
-      transform: translateY(0) translateX(0);
+    #content {
+      max-width: 900px;
+      margin: 0 auto 60px;
+      padding: 0 20px;
+      color: #ddd;
+      font-size: 1.15rem;
+      line-height: 1.6;
+      user-select: text;
+      z-index: 10;
+    }
+
+    .info-box {
+      background: linear-gradient(145deg, #1a1c29, #11141f);
+      border-radius: 24px;
+      padding: 2rem 2.5rem;
+      box-shadow: 0 0 30px #9147ffaa;
+      margin-bottom: 40px;
+      color: #eee;
+      user-select: text;
+      border: 2px solid #9147ff;
+    }
+    .info-box h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 900;
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: #ff61a6;
+      text-shadow: 0 0 8px #ff61a6cc;
+    }
+    .info-box p {
+      font-size: 1rem;
+      line-height: 1.5;
+      color: #ccc;
+    }
+    .info-box .twitch-logo {
+      width: 48px;
+      filter: drop-shadow(0 0 4px #9147ffaa);
+      margin-bottom: 16px;
+      user-select: none;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem 0 1.5rem;
+      font-size: 0.9rem;
+      color: #9147ffbb;
+      user-select: none;
+    }
+
+    /* Particle Background */
+    #particles {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+    .particle {
+      position: absolute;
+      background: #9147ff;
+      border-radius: 50%;
       opacity: 0.15;
+      animation: float 12s infinite ease-in-out;
     }
-    50% {
-      transform: translateY(-10px) translateX(5px);
-      opacity: 0.3;
+    .particle:nth-child(odd) {
+      background: #ff61a6;
+      opacity: 0.1;
     }
-  }
-
-  /* Follow-text pienennetty ja piilotettu alareunaan */
-  #follow-text {
-    position: fixed;
-    bottom: 10px;
-    right: 10px;
-    font-family: 'Orbitron', sans-serif;
-    font-weight: 700;
-    font-size: 0.85rem;
-    color: #9147ffcc;
-    text-shadow: 0 0 6px #9147ff88;
-    cursor: pointer;
-    user-select: none;
-    z-index: 1001;
-    transition: color 0.3s ease;
-  }
-  #follow-text:hover {
-    color: #ff61a6;
-    text-shadow: 0 0 10px #ff61a6;
-  }
-
-  /* Sivujen sisältö */
-  #content {
-    max-width: 900px;
-    margin: 0 auto 60px;
-    padding: 0 20px;
-    color: #ddd;
-    font-size: 1.15rem;
-    line-height: 1.6;
-    user-select: text;
-    z-index: 10;
-  }
-
-  /* BOX-tyyli sivuille */
-  .info-box {
-    background: linear-gradient(145deg, #1a1c29, #11141f);
-    border-radius: 24px;
-    padding: 2rem 2.5rem;
-    box-shadow: 0 0 30px #9147ffaa;
-    margin-bottom: 40px;
-    color: #eee;
-    user-select: text;
-    border: 2px solid #9147ff;
-  }
-  .info-box h2 {
-    font-family: 'Orbitron', sans-serif;
-    font-weight: 900;
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
-    color: #ff61a6;
-    text-shadow: 0 0 8px #ff61a6cc;
-  }
-  .info-box p {
-    font-size: 1rem;
-    line-height: 1.5;
-    color: #ccc;
-  }
-  .info-box a {
-    color: #9147ff;
-    text-decoration: none;
-    font-weight: 700;
-    transition: color 0.3s ease;
-  }
-  .info-box a:hover {
-    color: #ff61a6;
-  }
-
-  /* Twitch-logo tyyli */
-  .twitch-logo {
-    width: 48px;
-    vertical-align: middle;
-    margin-right: 12px;
-    filter: drop-shadow(0 0 6px #9147ffcc);
-  }
-
-  /* Lista työkaluille */
-  ul.tools-list {
-    list-style: none;
-    padding-left: 0;
-  }
-  ul.tools-list li {
-    background: #22253a;
-    margin-bottom: 14px;
-    padding: 14px 18px;
-    border-radius: 16px;
-    box-shadow: 0 0 15px #9147ff55;
-    font-weight: 600;
-    font-size: 1.1rem;
-    transition: background-color 0.3s ease;
-  }
-  ul.tools-list li:hover {
-    background-color: #3c1c8d;
-  }
-  ul.tools-list li a {
-    color: #d6bcff;
-    text-decoration: none;
-  }
-  ul.tools-list li a:hover {
-    color: #ff61a6;
-  }
-
-</style>
+    @keyframes float {
+      0%, 100% { transform: translateY(0) translateX(0); }
+      50% { transform: translateY(-20px) translateX(5px); }
+    }
+  </style>
 </head>
 <body>
+  <div id="particles"></div>
 
-<div id="top-banner"><span>Suomalaiset Twitch-striimaajat – Top Twitch Finland</span></div>
+  <div id="top-banner">Suomalaiset Twitch-striimaajat</div>
 
-<header>
-  <h1>Suomalaiset Twitch-striimaajat</h1>
-</header>
+  <header>TopiaBets Twitch Suomi</header>
 
-<nav>
-  <button class="active" data-page="home">Kotisivu</button>
-  <button data-page="tips">Striimausvinkit</button>
-  <button data-page="tools">Työkalut</button>
-  <button data-page="about">Tietoa Twitchistä</button>
-</nav>
+  <nav>
+    <button class="active" data-page="home">Kotisivu</button>
+    <button data-page="tools">Työkalut</button>
+    <button data-page="tips">Striimausvinkit</button>
+    <button data-page="about">Tietoa Twitchistä</button>
+  </nav>
 
-<input id="search" type="text" placeholder="Etsi striimaajaa..." aria-label="Etsi striimaajaa">
+  <input
+    type="text"
+    id="search"
+    placeholder="Etsi striimaajaa..."
+    aria-label="Etsi striimaajaa"
+    autocomplete="off"
+  />
 
-<div id="follow-text" title="Seuraa J1mPPaZ Twitchissä!">Follow J1mPPaZ in Twitch!</div>
+  <main id="content">
+    <!-- Kotisivu -->
+    <section id="home" class="page">
+      <div id="streamer-list" class="grid"></div>
+    </section>
 
-<section id="streamer-list" aria-live="polite" aria-atomic="true">
-  <!-- Streamerit ilmestyvät tänne -->
-</section>
+    <!-- Työkalut -->
+    <section id="tools" class="page" style="display:none;">
+      <div class="info-box">
+        <h2>Työkalut striimaajille</h2>
+        <p>
+          Tässä voit ladata hyödyllisiä työkaluja striimaamiseen, kuten OBS Studio, Streamlabs ja StreamElements.
+        </p>
+        <ul style="margin-top: 1rem; color: #ccc; list-style-type: disc; padding-left: 1.2rem;">
+          <li><a href="https://obsproject.com/" target="_blank" class="underline text-purple-400 hover:text-purple-600">OBS Studio</a></li>
+          <li><a href="https://streamlabs.com/" target="_blank" class="underline text-purple-400 hover:text-purple-600">Streamlabs</a></li>
+          <li><a href="https://streamelements.com/" target="_blank" class="underline text-purple-400 hover:text-purple-600">StreamElements</a></li>
+        </ul>
+      </div>
+    </section>
 
-<div id="content" aria-live="polite" aria-atomic="true">
-  <!-- Dynaaminen sisältö sivuille -->
-</div>
+    <!-- Striimausvinkit -->
+    <section id="tips" class="page" style="display:none;">
+      <div class="info-box">
+        <h2>Striimausvinkit</h2>
+        <p>
+          Muista olla oma itsesi ja olla aktiivinen chatissa. Hyvä äänenlaatu ja kamera parantavat katselukokemusta. Säännöllinen lähetysrytmi auttaa kasvattamaan yleisöä.
+        </p>
+      </div>
+    </section>
 
-<div id="particles"></div>
+    <!-- Tietoa Twitchistä -->
+    <section id="about" class="page" style="display:none;">
+      <div class="info-box" style="text-align:center;">
+        <img
+          src="https://static.twitchcdn.net/assets/favicon-32-e29e246c157142c94346.png"
+          alt="Twitch logo"
+          class="twitch-logo"
+          loading="lazy"
+        />
+        <h2>Tietoa Twitchistä</h2>
+        <p>
+          Twitch on suosittu live-striimauspalvelu, joka keskittyy erityisesti peleihin, esportsiin ja viihteeseen.
+          Se tarjoaa reaaliaikaista vuorovaikutusta striimaajien ja katsojien välillä.
+        </p>
+        <p>
+          Twitch on ollut toiminnassa vuodesta 2011, ja sillä on miljoonia aktiivisia käyttäjiä päivittäin.
+        </p>
+        <p>
+          Lue lisää Twitchistä <a href="https://www.twitch.tv/p/about" target="_blank" class="underline text-purple-400 hover:text-purple-600">Twitchin virallisilta sivuilta</a>.
+        </p>
+      </div>
+    </section>
+  </main>
 
-<script>
-  const streamers = [
-    { name: 'J1mPPaZ', id: 'j1mppaz', colorClass: 'color-j1mppaz', isLive: true, viewers: 1200 },
-    { name: 'Skotti', id: 'skottix', colorClass: 'color-skotti', isLive: false },
-    { name: 'Gargee', id: 'gargee', colorClass: 'color-gargee', isLive: true, viewers: 800 },
-    { name: 'Lewaaw', id: 'lewaaw', colorClass: 'color-lewaaw', isLive: false },
-    { name: 'Novicci', id: 'novicci', colorClass: 'color-novicci', isLive: false },
-    { name: 'Hukkaw', id: 'hukkaw', colorClass: 'color-hukkaw', isLive: true, viewers: 600 },
-  ];
+  <a
+    href="https://www.twitch.tv/j1mppaz"
+    id="follow-text"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Seuraa J1mPPaZ Twitchissä"
+    title="Seuraa J1mPPaZ Twitchissä"
+  >Follow J1mPPaZ in Twitch!</a>
 
-  function createStreamerCard(s) {
-    const card = document.createElement('article');
-    card.className = `card ${s.colorClass}`;
-    card.setAttribute('data-name', s.name.toLowerCase());
+  <script>
+    const streamers = [
+      {
+        name: 'J1mPPaZ',
+        desc: 'Koodausta, pelejä ja modernia luovuutta – tunnettu monipuolisuudestaan.',
+        twitch: 'https://www.twitch.tv/j1mppaz',
+        img: 'https://static-cdn.jtvnw.net/jtv_user_pictures/98e1567b-23d9-48fa-9b03-19de52b0da36-profile_image-70x70.png',
+        colorClass: 'color-j1mppaz',
+        live: true,
+        viewers: 324
+      },
+      {
+        name: 'Skotti',
+        desc: 'Hauska ja energinen striimaaja, joka on aktiivinen useissa peleissä ja yhteisölähetyksissä.',
+        twitch: 'https://www.twitch.tv/skotti',
+        img: 'https://static-cdn.jtvnw.net/jtv_user_pictures/e2247b2c-5a6c-42b2-a42f-68d49ca5450e-profile_image-70x70.png',
+        colorClass: 'color-skotti',
+        live: false,
+        viewers: 0
+      },
+      {
+        name: 'Gargee',
+        desc: 'Rentoa pelistriimausta ja hyvää fiilistä – tunnetaan rauhallisesta tyylistään.',
+        twitch: 'https://www.twitch.tv/gargee',
+        img: 'https://static-cdn.jtvnw.net/jtv_user_pictures/0ac1f02e-01db-4d3e-aed8-008ecdd3dce8-profile_image-70x70.png',
+        colorClass: 'color-gargee',
+        live: true,
+        viewers: 86
+      },
+      {
+        name: 'Lewaaw',
+        desc: 'Nopeatempoisia pelejä ja kilpailullista pelimeininkiä suomenkielisellä twistillä.',
+        twitch: 'https://www.twitch.tv/lewaaw',
+        img: 'https://static-cdn.jtvnw.net/jtv_user_pictures/4f1d90e7-c477-4f8a-8545-8f4d2e117eb3-profile_image-70x70.png',
+        colorClass: 'color-lewaaw',
+        live: false,
+        viewers: 0
+      },
+      {
+        name: 'Novicci',
+        desc: 'Interaktiivista sisältöä ja hyvät yhteisölähetykset – paljon juttelua katsojien kanssa.',
+        twitch: 'https://www.twitch.tv/novicci',
+        img: 'https://static-cdn.jtvnw.net/jtv_user_pictures/426968f8-3979-479a-8a88-9f2f3d1e7b5b-profile_image-70x70.png',
+        colorClass: 'color-novicci',
+        live: true,
+        viewers: 52
+      },
+      {
+        name: 'Hukkaw',
+        desc: 'Monipuolinen pelistriimaaja, jonka kanavalla on sekä kilpailullista että rentoa meininkiä.',
+        twitch: 'https://www.twitch.tv/hukkaw',
+        img: 'https://static-cdn.jtvnw.net/jtv_user_pictures/1180bc4f-d4d3-4a59-82a9-6f1b03b14f1c-profile_image-70x70.png',
+        colorClass: 'color-hukkaw',
+        live: false,
+        viewers: 0
+      },
+    ];
 
-    const title = document.createElement('h2');
-    title.textContent = s.name;
-    card.appendChild(title);
+    function createStreamerCard(s) {
+      const card = document.createElement('div');
+      card.className = `card ${s.colorClass}`;
+      card.setAttribute('data-name', s.name.toLowerCase());
 
-    const liveStatus = document.createElement('div');
-    liveStatus.className = 'live-status';
-    if(s.isLive) {
-      liveStatus.textContent = `LIVE – ${s.viewers ?? '–'} katsojaa`;
-      liveStatus.classList.add('live');
-    } else {
-      liveStatus.textContent = 'OFFLINE-TILASSA';
-      liveStatus.classList.add('offline');
+      card.innerHTML = `
+        <img src="${s.img}" alt="${s.name} profiilikuva" class="profile-pic" loading="lazy" />
+        <h2>${s.name}</h2>
+        <p>${s.desc}</p>
+        <a href="${s.twitch}" target="_blank" rel="noopener noreferrer" aria-label="Käy ${s.name} Twitch-kanavalla" class="inline-block mt-3 text-purple-400 underline hover:text-purple-600">Käy kanavalla</a>
+        <div class="live-status ${s.live ? 'live' : 'offline'}" aria-live="polite">${s.live ? 'LIVE' : 'OFFLINE-TILASSA'}</div>
+      `;
+      return card;
     }
-    card.appendChild(liveStatus);
 
-    return card;
-  }
+    function renderStreamers(list) {
+      const container = document.getElementById('streamer-list');
+      container.innerHTML = '';
+      list.forEach(s => {
+        container.appendChild(createStreamerCard(s));
+      });
+    }
 
-  function showPage(page) {
-    const content = document.getElementById('content');
-    const list = document.getElementById('streamer-list');
-    const followText = document.getElementById('follow-text');
+    // Search function
     const searchInput = document.getElementById('search');
-
-    // Reset UI
-    searchInput.style.display = 'none';
-    list.style.display = 'none';
-    content.style.display = 'block';
-    followText.style.display = 'none';
-
-    switch(page) {
-      case 'home':
-        list.style.display = 'grid';
-        searchInput.style.display = 'block';
-        content.style.display = 'none';
-        followText.style.display = 'block';
-        break;
-
-      case 'tips':
-        content.innerHTML = `
-          <div class="info-box">
-            <h2>Striimausvinkkejä aloittelijoille</h2>
-            <ul>
-              <li>Pidä streamisi säännöllisenä ja vuorovaikutteisena.</li>
-              <li>Panosta äänenlaatuun ja kameraan.</li>
-              <li>Ole oma itsesi ja luo oma tyyli.</li>
-              <li>Käytä Twitchin chat- ja moderaatiotyökaluja tehokkaasti.</li>
-              <li>Muista pitää taukoja ja huolehtia jaksamisesta.</li>
-            </ul>
-          </div>
-        `;
-        break;
-
-      case 'tools':
-        content.innerHTML = `
-          <div class="info-box">
-            <h2>Hyödyllisiä työkaluja striimaajille</h2>
-            <ul class="tools-list">
-              <li><a href="https://obsproject.com/" target="_blank" rel="noopener noreferrer">OBS Studio</a> – suosittu ilmainen striimausohjelma.</li>
-              <li><a href="https://streamlabs.com/" target="_blank" rel="noopener noreferrer">Streamlabs</a> – helppo ja monipuolinen striimausalusta.</li>
-              <li><a href="https://nightdev.com/" target="_blank" rel="noopener noreferrer">Nightbot</a> – automaattinen chat-botti.</li>
-              <li><a href="https://streamelements.com/" target="_blank" rel="noopener noreferrer">StreamElements</a> – overlays ja chat-työkalut.</li>
-              <li><a href="https://twitchtracker.com/" target="_blank" rel="noopener noreferrer">TwitchTracker</a> – analytiikkaa striimeistäsi.</li>
-            </ul>
-          </div>
-        `;
-        break;
-
-      case 'about':
-        content.innerHTML = `
-          <div class="info-box" style="display:flex; align-items:center; gap:16px;">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Twitch_logo_2019.svg/1024px-Twitch_logo_2019.svg.png" alt="Twitch-logo" class="twitch-logo" />
-            <div>
-              <h2>Tietoa Twitchistä</h2>
-              <p>Twitch on maailman suurin live-striimausalusta, joka keskittyy erityisesti pelaajiin, taiteilijoihin ja erilaisiin sisällöntuottajiin. Alusta tarjoaa mahdollisuuden suoratoistaa videoita reaaliajassa ja olla vuorovaikutuksessa katsojien kanssa chatin kautta.</p>
-              <p>Twitch tarjoaa työkalut moderaatioon, yhteisön rakentamiseen ja sisällön kaupallistamiseen. Se on olennainen osa modernia striimauskulttuuria.</p>
-            </div>
-          </div>
-        `;
-        break;
-    }
-  }
-
-  window.onload = () => {
-    const list = document.getElementById('streamer-list');
-    streamers.forEach(s => {
-      list.appendChild(createStreamerCard(s));
+    searchInput.addEventListener('input', () => {
+      const term = searchInput.value.trim().toLowerCase();
+      const filtered = streamers.filter(s => s.name.toLowerCase().includes(term));
+      renderStreamers(filtered);
     });
 
+    // Navigation for pages
     const navButtons = document.querySelectorAll('nav button');
+    const pages = document.querySelectorAll('.page');
+
     navButtons.forEach(btn => {
       btn.addEventListener('click', () => {
         navButtons.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-        showPage(btn.dataset.page);
+        const pageToShow = btn.getAttribute('data-page');
+        pages.forEach(p => {
+          p.style.display = p.id === pageToShow ? 'block' : 'none';
+        });
       });
     });
 
-    document.getElementById('search').addEventListener('input', e => {
-      const query = e.target.value.toLowerCase();
-      document.querySelectorAll('#streamer-list .card').forEach(card => {
-        const name = card.getAttribute('data-name');
-        card.style.display = name.includes(query) ? 'block' : 'none';
-      });
-    });
-
-    showPage('home');
-
-    // Particle effect
-    const particleCount = 70;
-    const container = document.getElementById('particles');
-    for(let i = 0; i < particleCount; i++) {
-      const p = document.createElement('div');
-      p.className = 'particle';
-      p.style.left = Math.random() * 100 + 'vw';
-      p.style.top = Math.random() * 100 + 'vh';
-      p.style.width = p.style.height = (Math.random() * 5 + 4) + 'px';
-      p.style.animationDuration = (Math.random() * 6 + 5) + 's';
-      p.style.animationDelay = (Math.random() * 5) + 's';
-      container.appendChild(p);
+    // Particle background generation
+    const particlesContainer = document.getElementById('particles');
+    function createParticles() {
+      const count = 50;
+      for (let i = 0; i < count; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        const size = Math.random() * 8 + 6;
+        particle.style.width = size + 'px';
+        particle.style.height = size + 'px';
+        particle.style.top = Math.random() * 100 + 'vh';
+        particle.style.left = Math.random() * 100 + 'vw';
+        particle.style.animationDelay = (Math.random() * 10) + 's';
+        particle.style.animationDuration = (6 + Math.random() * 6) + 's';
+        particlesContainer.appendChild(particle);
+      }
     }
-  };
-</script>
+
+    createParticles();
+    renderStreamers(streamers);
+  </script>
 </body>
 </html>
