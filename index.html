@@ -7,24 +7,63 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
   body {
-    background: linear-gradient(-45deg, #0d1117, #161b22, #0d1117, #161b22);
-    background-size: 400% 400%;
-    animation: gradientBG 20s ease infinite;
-    overflow-x: hidden;
+    margin: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
-  @keyframes gradientBG {
-    0% {background-position: 0% 50%;}
-    50% {background-position: 100% 50%;}
-    100% {background-position: 0% 50%;}
+    background: #0d1117;
+    color: white;
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
   }
 
-  /* Animaatiot kortteihin */
-  .fade-in {
-    animation: fadeInUp 0.6s ease forwards;
-    opacity: 0;
-    transform: translateY(10px);
+  /* Partikkelitausta */
+  #particles {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
   }
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(74, 222, 128, 0.3);
+    animation-timing-function: linear;
+    opacity: 0.6;
+  }
+
+  /* Grid kontti */
+  #streamer-list {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+    gap: 1.5rem;
+  }
+
+  /* Kortit */
+  .card {
+    position: relative;
+    border-radius: 1.5rem;
+    padding: 2rem 1.5rem;
+    box-shadow: 0 0 15px rgba(74, 222, 128, 0.3);
+    text-align: center;
+    backdrop-filter: blur(8px);
+    background: rgba(74, 222, 128, 0.15);
+    color: white;
+    cursor: default;
+    transform: translateY(15px);
+    opacity: 0;
+    animation-fill-mode: forwards;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    user-select: none;
+  }
+  .card:hover {
+    transform: translateY(0) scale(1.05);
+    box-shadow: 0 0 35px rgba(74, 222, 128, 0.6);
+    z-index: 10;
+  }
+
+  /* Animaatio kortille */
   @keyframes fadeInUp {
     to {
       opacity: 1;
@@ -32,90 +71,34 @@
     }
   }
 
-  /* Scrollbar tyylit */
-  ::-webkit-scrollbar {
-    width: 10px;
+  /* Hieman eri värit kortteihin */
+  .color-j1mppaz {
+    background: linear-gradient(135deg, rgba(74,222,128,0.25), rgba(16,185,129,0.4));
+    box-shadow: 0 0 25px rgba(74, 222, 128, 0.7);
   }
-  ::-webkit-scrollbar-track {
-    background: #161b22;
+  .color-skotti {
+    background: linear-gradient(135deg, rgba(96,165,250,0.25), rgba(59,130,246,0.4));
+    box-shadow: 0 0 25px rgba(59,130,246,0.7);
   }
-  ::-webkit-scrollbar-thumb {
-    background: #4ade80;
-    border-radius: 10px;
+  .color-gargee {
+    background: linear-gradient(135deg, rgba(240,171,252,0.25), rgba(191,90,242,0.4));
+    box-shadow: 0 0 25px rgba(191,90,242,0.7);
   }
-
-  /* Streamer boxien eri tyylit */
-
-  /* Taustakuvien hillityt overlayt */
-  .card-background {
-    background-size: cover;
-    background-position: center;
-    border-radius: 1.5rem;
-    position: relative;
-    color: white;
-    box-shadow: 0 0 25px rgba(0,0,0,0.6);
+  .color-lewaaw {
+    background: linear-gradient(135deg, rgba(252,165,165,0.25), rgba(239,68,68,0.4));
+    box-shadow: 0 0 25px rgba(239,68,68,0.7);
   }
-  .card-background::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(0,0,0,0.6);
-    border-radius: 1.5rem;
-    pointer-events: none;
+  .color-novicci {
+    background: linear-gradient(135deg, rgba(253,224,71,0.25), rgba(202,138,4,0.4));
+    box-shadow: 0 0 25px rgba(202,138,4,0.7);
+    color: #1a1a1a;
   }
-  .card-content {
-    position: relative;
-    padding: 2rem;
-    z-index: 1;
-    text-align: center;
+  .color-hukkaw {
+    background: linear-gradient(135deg, rgba(147,197,253,0.25), rgba(59,130,246,0.4));
+    box-shadow: 0 0 25px rgba(59,130,246,0.7);
   }
 
-  /* J1mPPaZ */
-  .card-j1mppaz {
-    background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80');
-  }
-
-  /* Skotti */
-  .card-skotti {
-    background-image: url('https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=800&q=80');
-    border-radius: 2rem 0.5rem 2rem 0.5rem;
-  }
-
-  /* Gargee */
-  .card-gargee {
-    background-image: url('https://images.unsplash.com/photo-1495567720989-cebdbdd97913?auto=format&fit=crop&w=800&q=80');
-    border-radius: 0.5rem 2rem 0.5rem 2rem;
-  }
-
-  /* Lewaaw */
-  .card-lewaaw {
-    background-image: url('https://images.unsplash.com/photo-1468071174046-657d9d351a40?auto=format&fit=crop&w=800&q=80');
-  }
-
-  /* Novicci */
-  .card-novicci {
-    background-image: url('https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=800&q=80');
-    border-radius: 1.5rem 0.5rem 1.5rem 0.5rem;
-  }
-
-  /* Hukkaw */
-  .card-hukkaw {
-    background-image: url('https://images.unsplash.com/photo-1486308510493-cb6766c3396f?auto=format&fit=crop&w=800&q=80');
-    border-radius: 0.5rem 1.5rem 0.5rem 1.5rem;
-  }
-
-  /* Hover efekti */
-  .card-background:hover {
-    box-shadow: 0 0 45px rgba(74, 222, 128, 0.8);
-    transform: scale(1.07);
-    transition: all 0.3s ease;
-    z-index: 10;
-  }
-  .card-background {
-    transition: all 0.3s ease;
-  }
-
-  /* Katso Twitchissä nappi */
+  /* Nappi */
   .btn-twitch {
     background: #4ade80;
     color: #1a1a1a;
@@ -127,6 +110,8 @@
     box-shadow: 0 4px 12px #4ade8077;
     transition: background-color 0.3s ease, transform 0.3s ease;
     cursor: pointer;
+    text-decoration: none;
+    user-select: none;
   }
   .btn-twitch:hover {
     background-color: #22c55e;
@@ -143,6 +128,7 @@
     margin-bottom: 1rem;
     box-shadow: 0 0 10px;
     text-transform: uppercase;
+    user-select: none;
   }
   .live-status.live {
     background-color: #dc2626;
@@ -154,87 +140,195 @@
     color: #94a3b8;
     text-shadow: 0 0 6px #000000cc;
   }
+
+  /* Header */
+  h1 {
+    font-size: 2.75rem;
+    font-weight: 900;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: #4ade80;
+    text-shadow: 0 0 8px #4ade80bb;
+    user-select: none;
+  }
+
+  /* Search */
+  #search {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 1rem;
+    border: none;
+    background-color: #161b22;
+    color: white;
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 0 8px #4ade80bb;
+    outline-offset: 2px;
+    user-select: none;
+  }
+  #search::placeholder {
+    color: #94a3b8;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 1rem;
+    color: #555;
+    font-size: 0.9rem;
+    user-select: none;
+  }
 </style>
 </head>
-<body class="text-white min-h-screen flex flex-col">
+<body>
 
-  <div class="max-w-5xl mx-auto p-6 flex-grow">
-    <h1 class="text-4xl font-extrabold mb-8 text-center text-accent drop-shadow-lg">🇫🇮 Suomalaiset Twitch-striimaajat</h1>
+<h1>🇫🇮 Suomalaiset Twitch-striimaajat</h1>
+<input id="search" placeholder="Etsi striimaajaa..." autocomplete="off" />
 
-    <input
-      type="text"
-      id="search"
-      placeholder="Etsi striimaajaa..."
-      class="w-full p-4 mb-8 rounded-xl bg-gray-900 text-white placeholder-gray-500 focus:outline-none focus:ring-4 focus:ring-accent transition"
-      autocomplete="off"
-    />
+<div id="streamer-list"></div>
 
-    <div id="streamer-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
-  </div>
+<div id="particles"></div>
 
-  <footer class="text-center text-gray-500 mb-6 select-none">© 2025 J1mPPaZ & Co</footer>
+<footer>© 2025 J1mPPaZ & Co</footer>
 
-  <script>
-    const streamers = [
-      { name: 'J1mPPaZ', twitchId: 'j1mppaz', cardClass: 'card-j1mppaz' },
-      { name: 'Skotti', twitchId: 'skotti', cardClass: 'card-skotti' },
-      { name: 'Gargee', twitchId: 'gargee', cardClass: 'card-gargee' },
-      { name: 'Lewaaw', twitchId: 'lewaaw', cardClass: 'card-lewaaw' },
-      { name: 'Novicci', twitchId: 'novicci', cardClass: 'card-novicci' },
-      { name: 'Hukkaw', twitchId: 'hukkaw', cardClass: 'card-hukkaw' },
-    ];
+<script>
+  const streamers = [
+    { name: 'J1mPPaZ', twitchId: 'j1mppaz', colorClass: 'color-j1mppaz' },
+    { name: 'Skotti', twitchId: 'skotti', colorClass: 'color-skotti' },
+    { name: 'Gargee', twitchId: 'gargee', colorClass: 'color-gargee' },
+    { name: 'Lewaaw', twitchId: 'lewaaw', colorClass: 'color-lewaaw' },
+    { name: 'Novicci', twitchId: 'novicci', colorClass: 'color-novicci' },
+    { name: 'Hukkaw', twitchId: 'hukkaw', colorClass: 'color-hukkaw' },
+  ];
 
-    async function fetchStreamData(username) {
-      try {
-        const res = await fetch(`https://decapi.me/twitch/status/${username}`);
-        const text = await res.text();
-        const isLive = !text.toLowerCase().includes('offline');
-        const viewersMatch = text.match(/\((\d+)\s+katsojaa/);
-        const viewers = viewersMatch ? viewersMatch[1] : null;
-        return { isLive, viewers, statusText: text };
-      } catch {
-        return { isLive: false, viewers: null, statusText: 'Tietoja ei saatavilla' };
+  async function fetchStreamData(username) {
+    try {
+      const res = await fetch(`https://decapi.me/twitch/status/${username}`);
+      const text = await res.text();
+      const isLive = !text.toLowerCase().includes('offline');
+      const viewersMatch = text.match(/\((\d+)\s+katsojaa/);
+      const viewers = viewersMatch ? viewersMatch[1] : null;
+      return { isLive, viewers, statusText: text };
+    } catch {
+      return { isLive: false, viewers: null, statusText: 'Tietoja ei saatavilla' };
+    }
+  }
+
+  function createParticle() {
+    const particle = document.createElement('div');
+    particle.classList.add('particle');
+    const size = Math.random() * 6 + 4;
+    particle.style.width = size + 'px';
+    particle.style.height = size + 'px';
+    particle.style.top = Math.random() * window.innerHeight + 'px';
+    particle.style.left = Math.random() * window.innerWidth + 'px';
+    particle.style.animationDuration = (Math.random() * 20 + 10) + 's';
+    particle.style.animationName = 'moveParticle';
+    particle.style.opacity = 0.2 + Math.random() * 0.4;
+    return particle;
+  }
+
+  function initParticles() {
+    const container = document.getElementById('particles');
+    const particleCount = 60;
+    for(let i = 0; i < particleCount; i++) {
+      const p = createParticle();
+      container.appendChild(p);
+      animateParticle(p);
+    }
+  }
+
+  function animateParticle(particle) {
+    const xStart = parseFloat(particle.style.left);
+    const yStart = parseFloat(particle.style.top);
+    const xEnd = xStart + (Math.random() * 100 - 50);
+    const yEnd = yStart + (Math.random() * 100 - 50);
+    let start = null;
+
+    function step(timestamp) {
+      if (!start) start = timestamp;
+      const progress = (timestamp - start) / (parseFloat(particle.style.animationDuration) * 1000);
+      if (progress < 1) {
+        const x = xStart + (xEnd - xStart) * progress;
+        const y = yStart + (yEnd - yStart) * progress;
+        particle.style.left = x + 'px';
+        particle.style.top = y + 'px';
+        requestAnimationFrame(step);
+      } else {
+        // Reset start position and animate again
+        particle.style.left = xEnd + 'px';
+        particle.style.top = yEnd + 'px';
+        animateParticle(particle);
       }
     }
+    requestAnimationFrame(step);
+  }
 
-    window.onload = async () => {
-      const list = document.getElementById('streamer-list');
+  function createStreamerCard(s, index) {
+    const card = document.createElement('div');
+    card.className = `card ${s.colorClass}`;
+    card.setAttribute('data-name', s.name.toLowerCase());
+    card.style.animation = `fadeInUp 0.6s ease forwards`;
+    card.style.animationDelay = (index * 0.2) + 's';
 
-      for (const [i, s] of streamers.entries()) {
-        const card = document.createElement('div');
-        card.className = `card-background fade-in ${s.cardClass}`;
-        card.style.animationDelay = (i * 0.12) + 's';
-        card.setAttribute('data-name', s.name.toLowerCase());
+    const liveStatus = document.createElement('div');
+    liveStatus.classList.add('live-status');
+    liveStatus.textContent = 'Ladataan...';
+    card.appendChild(liveStatus);
 
-        const twitchURL = `https://www.twitch.tv/${s.twitchId}`;
-        const { isLive, viewers, statusText } = await fetchStreamData(s.twitchId);
+    const nameElem = document.createElement('h2');
+    nameElem.textContent = s.name;
+    nameElem.style.fontWeight = '900';
+    nameElem.style.fontSize = '1.5rem';
+    card.appendChild(nameElem);
 
-        card.innerHTML = `
-          <div class="card-content">
-            <h2 class="text-2xl font-semibold mb-2">${s.name}</h2>
-            <p class="mb-2 italic">${statusText}</p>
-            ${
-              isLive
-                ? `<span class="live-status live">LIVE – ${viewers || '?'} katsojaa</span>`
-                : `<span class="live-status offline">OFFLINE-TILASSA</span>`
-            }
-            <br/>
-            <a href="${twitchURL}" target="_blank" rel="noopener" class="btn-twitch">Katso Twitchissä</a>
-          </div>
-        `;
+    const twitchLink = document.createElement('a');
+    twitchLink.href = `https://www.twitch.tv/${s.twitchId}`;
+    twitchLink.target = '_blank';
+    twitchLink.className = 'btn-twitch';
+    twitchLink.textContent = 'Katso Twitchissä';
+    card.appendChild(twitchLink);
 
-        list.appendChild(card);
+    // Fetch live status asynchronously
+    fetchStreamData(s.twitchId).then(data => {
+      if(data.isLive) {
+        liveStatus.textContent = `LIVE – ${data.viewers ?? '–'} katsojaa`;
+        liveStatus.classList.remove('offline');
+        liveStatus.classList.add('live');
+      } else {
+        liveStatus.textContent = 'OFFLINE-TILASSA';
+        liveStatus.classList.remove('live');
+        liveStatus.classList.add('offline');
       }
+    }).catch(() => {
+      liveStatus.textContent = 'Tietoja ei saatavilla';
+      liveStatus.classList.remove('live');
+      liveStatus.classList.add('offline');
+    });
 
-      const searchInput = document.getElementById('search');
-      searchInput.addEventListener('input', (e) => {
-        const val = e.target.value.toLowerCase();
-        for (const card of list.children) {
-          const name = card.getAttribute('data-name');
-          card.style.display = name.includes(val) ? '' : 'none';
-        }
-      });
-    };
-  </script>
+    return card;
+  }
+
+  window.onload = () => {
+    const list = document.getElementById('streamer-list');
+    streamers.forEach((s, i) => {
+      const card = createStreamerCard(s, i);
+      list.appendChild(card);
+    });
+
+    // Haku
+    const searchInput = document.getElementById('search');
+    searchInput.addEventListener('input', (e) => {
+      const val = e.target.value.toLowerCase();
+      for (const card of list.children) {
+        const name = card.getAttribute('data-name');
+        card.style.display = name.includes(val) ? '' : 'none';
+      }
+    });
+
+    initParticles();
+  };
+</script>
+
 </body>
 </html>
