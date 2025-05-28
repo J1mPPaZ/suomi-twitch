@@ -8,7 +8,6 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@400;600&display=swap');
 
-  /* Perusasetukset */
   body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
@@ -18,7 +17,7 @@
     overflow-x: hidden;
   }
 
-  /* Yläbanneri, neon-tyyli */
+  /* Top banner */
   #top-banner {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -47,7 +46,6 @@
     100% { transform: translateX(-100%); }
   }
 
-  /* Sivun pääotsikko */
   header h1 {
     font-family: 'Orbitron', sans-serif;
     font-weight: 900;
@@ -58,7 +56,33 @@
     text-shadow: 0 0 8px #9147ff88;
   }
 
-  /* Hakukenttä */
+  /* Navigaatio */
+  nav {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 40px;
+  }
+  nav button {
+    background: transparent;
+    border: 2px solid #9147ff;
+    border-radius: 30px;
+    padding: 10px 26px;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: #9147ff;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    user-select: none;
+  }
+  nav button:hover,
+  nav button.active {
+    background-color: #9147ff;
+    color: #fff;
+    box-shadow: 0 0 15px #9147ffcc;
+  }
+
   #search {
     display: block;
     max-width: 400px;
@@ -81,7 +105,6 @@
     background-color: #393b5a;
   }
 
-  /* Grid container */
   #streamer-list {
     display: grid;
     max-width: 1200px;
@@ -92,7 +115,6 @@
     z-index: 10;
   }
 
-  /* Kortit - striimaajaboxit */
   .card {
     background: linear-gradient(145deg, #1a1c29, #11141f);
     border-radius: 25px;
@@ -111,7 +133,7 @@
     z-index: 15;
   }
 
-  /* Korttien värit (hillityt, himmeät) */
+  /* Korttien värit */
   .color-j1mppaz {
     background: linear-gradient(145deg, #2a3342, #221f44);
     box-shadow: 0 0 20px #9147ff99;
@@ -138,7 +160,6 @@
     box-shadow: 0 0 20px #33ccff99;
   }
 
-  /* Nimi */
   .card h2 {
     font-family: 'Orbitron', sans-serif;
     font-weight: 900;
@@ -147,7 +168,6 @@
     user-select: text;
   }
 
-  /* Live status */
   .live-status {
     display: inline-block;
     font-weight: 700;
@@ -171,7 +191,6 @@
     box-shadow: none;
   }
 
-  /* Linkki nappi */
   .btn-twitch {
     background-color: #9147ff;
     color: white;
@@ -190,7 +209,6 @@
     transform: scale(1.1);
   }
 
-  /* Partikkelitausta, yksinkertainen neon tyyli */
   #particles {
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
@@ -220,189 +238,195 @@
     }
   }
 
-  /* YouTube-osio */
-  #youtube-section {
-    max-width: 1100px;
-    margin: 0 auto 100px;
-    padding: 0 15px;
-    z-index: 10;
-  }
-  #youtube-section h2 {
+  /* Follow J1mPPaZ teksti */
+  #follow-text {
+    text-align: center;
     font-family: 'Orbitron', sans-serif;
     font-weight: 900;
-    font-size: 2.5rem;
-    color: #9147ff;
-    text-align: center;
-    margin-bottom: 40px;
-    text-shadow: 0 0 10px #9147ff88;
-  }
-
-  /* YouTube videoiden grid */
-  .youtube-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 28px;
-  }
-  .youtube-video {
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 8px 25px rgba(145, 71, 255, 0.6);
-    transition: box-shadow 0.3s ease;
-  }
-  .youtube-video iframe {
-    width: 100%;
-    height: 180px;
-  }
-  .youtube-video:hover {
-    box-shadow: 0 12px 40px rgba(145, 71, 255, 0.85);
-  }
-
-  /* Footer */
-  footer {
-    text-align: center;
-    color: #555;
-    font-size: 0.95rem;
-    padding: 20px 10px;
+    font-size: 2rem;
+    color: #ff61a6;
+    margin-bottom: 60px;
+    text-shadow:
+      0 0 8px #ff61a6,
+      0 0 20px #ff61a6,
+      0 0 40px #ff61a6;
+    animation: pulseGlow 3s infinite alternate ease-in-out;
     user-select: none;
   }
-
-  /* Responsive tweaks */
-  @media (max-width: 500px) {
-    .card h2 {
-      font-size: 1.6rem;
+  @keyframes pulseGlow {
+    0% {
+      text-shadow:
+        0 0 6px #ff61a6,
+        0 0 14px #ff61a6,
+        0 0 25px #ff61a6;
+      color: #ff4d94;
     }
-    #top-banner {
-      font-size: 0.9rem;
-      height: 35px;
-      line-height: 35px;
-    }
-    #youtube-section h2 {
-      font-size: 1.8rem;
-      margin-bottom: 30px;
-    }
-    #youtube-section iframe {
-      height: 160px;
+    100% {
+      text-shadow:
+        0 0 20px #ff61a6,
+        0 0 40px #ff61a6,
+        0 0 60px #ff61a6;
+      color: #ff7abb;
     }
   }
+
+  /* Sisältö sivuille */
+  #content {
+    max-width: 960px;
+    margin: 0 auto 60px;
+    padding: 0 20px;
+    color: #ccc;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    user-select: text;
+  }
+
 </style>
 </head>
 <body>
 
-<div id="top-banner"><span>🔥 SUOMALAISET STRIIMAAJAT - TUNNISTA LIVE & OFFLINE - Twitch Finland 🔥</span></div>
+<div id="top-banner"><span>Suomalaiset Twitch-striimaajat – Top Twitch Finland</span></div>
 
 <header>
   <h1>Suomalaiset Twitch-striimaajat</h1>
 </header>
 
-<input id="search" placeholder="Etsi striimaajaa..." autocomplete="off" />
+<nav>
+  <button class="active" data-page="home">Kotisivu</button>
+  <button data-page="tips">Striimausvinkit</button>
+  <button data-page="tools">Työkalut</button>
+  <button data-page="about">Tietoa Twitchistä</button>
+</nav>
 
-<section id="streamer-list"></section>
+<input id="search" type="text" placeholder="Etsi striimaajaa..." aria-label="Etsi striimaajaa">
 
-<section id="youtube-section">
-  <h2>Suomalaisia Twitch- ja pelivideoita</h2>
-  <div class="youtube-grid" id="youtube-videos">
-    <!-- YouTube videot generoidaan JS:llä -->
-  </div>
+<div id="follow-text">Follow J1mPPaZ in Twitch!</div>
+
+<section id="streamer-list" aria-live="polite" aria-atomic="true">
+  <!-- Streamerit ilmestyvät tänne -->
 </section>
+
+<div id="content" aria-live="polite" aria-atomic="true">
+  <!-- Dynaaminen sisältö sivuille -->
+</div>
 
 <div id="particles"></div>
 
-<footer>© 2025 J1mPPaZ & Co — Kiitos kun katsoit!</footer>
-
 <script>
-  // Twitch-striimaajat
   const streamers = [
-    { name: 'J1mPPaZ', twitchId: 'j1mppaz', colorClass: 'color-j1mppaz' },
-    { name: 'Skotti', twitchId: 'skotti', colorClass: 'color-skotti' },
-    { name: 'Gargee', twitchId: 'gargee', colorClass: 'color-gargee' },
-    { name: 'Lewaaw', twitchId: 'lewaaw', colorClass: 'color-lewaaw' },
-    { name: 'Novicci', twitchId: 'novicci', colorClass: 'color-novicci' },
-    { name: 'Hukkaw', twitchId: 'hukkaw', colorClass: 'color-hukkaw' },
+    { name: 'J1mPPaZ', id: 'j1mppaz', colorClass: 'color-j1mppaz', isLive: true, viewers: 1200 },
+    { name: 'Skotti', id: 'skottix', colorClass: 'color-skotti', isLive: false },
+    { name: 'Gargee', id: 'gargee', colorClass: 'color-gargee', isLive: true, viewers: 800 },
+    { name: 'Lewaaw', id: 'lewaaw', colorClass: 'color-lewaaw', isLive: false },
+    { name: 'Novicci', id: 'novicci', colorClass: 'color-novicci', isLive: false },
+    { name: 'Hukkaw', id: 'hukkaw', colorClass: 'color-hukkaw', isLive: true, viewers: 600 },
   ];
 
-  async function fetchStreamData(username) {
-    try {
-      const res = await fetch(`https://decapi.me/twitch/status/${username}`);
-      const text = await res.text();
-      const isLive = !text.toLowerCase().includes('offline');
-      const viewersMatch = text.match(/\((\d+)\s+katsojaa/);
-      const viewers = viewersMatch ? viewersMatch[1] : null;
-      return { isLive, viewers, statusText: text };
-    } catch {
-      return { isLive: false, viewers: null, statusText: 'Tietoja ei saatavilla' };
-    }
-  }
-
-  function createStreamerCard(s, index) {
-    const card = document.createElement('div');
+  function createStreamerCard(s) {
+    const card = document.createElement('article');
     card.className = `card ${s.colorClass}`;
     card.setAttribute('data-name', s.name.toLowerCase());
 
-    // Live-status
+    const title = document.createElement('h2');
+    title.textContent = s.name;
+    card.appendChild(title);
+
     const liveStatus = document.createElement('div');
-    liveStatus.classList.add('live-status');
-    liveStatus.textContent = 'Ladataan...';
-    card.appendChild(liveStatus);
-
-    // Nimi
-    const nameElem = document.createElement('h2');
-    nameElem.textContent = s.name;
-    card.appendChild(nameElem);
-
-    // Twitch-linkki
-    const twitchLink = document.createElement('a');
-    twitchLink.href = `https://www.twitch.tv/${s.twitchId}`;
-    twitchLink.target = '_blank';
-    twitchLink.rel = 'noopener noreferrer';
-    twitchLink.className = 'btn-twitch';
-    twitchLink.textContent = 'Katso Twitchissä';
-    card.appendChild(twitchLink);
-
-    // Hae live-tila
-    fetchStreamData(s.twitchId).then(data => {
-      if(data.isLive) {
-        liveStatus.textContent = `LIVE – ${data.viewers ?? '–'} katsojaa`;
-        liveStatus.classList.remove('offline');
-        liveStatus.classList.add('live');
-      } else {
-        liveStatus.textContent = 'OFFLINE-TILASSA';
-        liveStatus.classList.remove('live');
-        liveStatus.classList.add('offline');
-      }
-    }).catch(() => {
-      liveStatus.textContent = 'Tietoja ei saatavilla';
-      liveStatus.classList.remove('live');
+    liveStatus.className = 'live-status';
+    if(s.isLive) {
+      liveStatus.textContent = `LIVE – ${s.viewers ?? '–'} katsojaa`;
+      liveStatus.classList.add('live');
+    } else {
+      liveStatus.textContent = 'OFFLINE-TILASSA';
       liveStatus.classList.add('offline');
-    });
+    }
+    card.appendChild(liveStatus);
 
     return card;
   }
 
-  // Random YouTube-videoita suomalaisilta kanavilta
-  const youtubeVideos = [
-    { id: 'qkQU_HlCpqQ', title: 'Nadeshot – PUBG Stream' },
-    { id: 'i1xv1S7S04s', title: 'Suomalainen pelistriimaaja – Parhaat hetket' },
-    { id: 'R7lHhwNgsGo', title: 'Ala näytä Twitchissä - suomalainen pelaaja' },
-    { id: 'XJjU15xzX00', title: 'Minecraft Suomi – Hauskat hetket' },
-    { id: 'SnKPZ3HC1D4', title: 'Suomalainen esports-tiimi – highlights' },
-  ];
+  function showPage(page) {
+    const content = document.getElementById('content');
+    const list = document.getElementById('streamer-list');
+    const followText = document.getElementById('follow-text');
+    const searchInput = document.getElementById('search');
 
-  function createYoutubeEmbed(video) {
-    const container = document.createElement('div');
-    container.className = 'youtube-video';
-    container.title = video.title;
+    // Reset visible UI
+    searchInput.style.display = 'none';
+    list.style.display = 'none';
+    content.style.display = 'block';
+    followText.style.display = 'none';
 
-    const iframe = document.createElement('iframe');
-    iframe.src = `https://www.youtube-nocookie.com/embed/${video.id}`;
-    iframe.title = video.title;
-    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-    iframe.allowFullscreen = true;
+    switch(page) {
+      case 'home':
+        list.style.display = 'grid';
+        searchInput.style.display = 'block';
+        content.style.display = 'none';
+        followText.style.display = 'block';
+        break;
 
-    container.appendChild(iframe);
-    return container;
+      case 'tips':
+        content.innerHTML = `
+          <h2>Striimausvinkkejä aloittelijoille</h2>
+          <ul>
+            <li>Pidä streamisi säännöllisenä ja vuorovaikutteisena.</li>
+            <li>Panosta äänenlaatuun ja kameraan.</li>
+            <li>Ole oma itsesi ja luo oma tyyli.</li>
+            <li>Käytä Twitchin chat- ja moderaatiotyökaluja tehokkaasti.</li>
+            <li>Muista pitää taukoja ja huolehtia jaksamisesta.</li>
+          </ul>
+        `;
+        break;
+
+      case 'tools':
+        content.innerHTML = `
+          <h2>Hyödyllisiä työkaluja striimaajille</h2>
+          <ul>
+            <li><a href="https://obsproject.com/" target="_blank" rel="noopener noreferrer">OBS Studio</a> – suosittu ilmainen striimausohjelma.</li>
+            <li><a href="https://streamlabs.com/" target="_blank" rel="noopener noreferrer">Streamlabs</a> – helppo ja monipuolinen striimausalusta.</li>
+            <li><a href="https://nightdev.com/" target="_blank" rel="noopener noreferrer">Nightbot</a> – automaattinen chat-botti.</li>
+            <li><a href="https://streamelements.com/" target="_blank" rel="noopener noreferrer">StreamElements</a> – overlays ja chat-työkalut.</li>
+            <li><a href="https://twitchtracker.com/" target="_blank" rel="noopener noreferrer">TwitchTracker</a> – analytiikkaa striimeistäsi.</li>
+          </ul>
+        `;
+        break;
+
+      case 'about':
+        content.innerHTML = `
+          <h2>Tietoa Twitchistä</h2>
+          <p>Twitch on maailman suurin striimausalusta, jossa pelaajat, taiteilijat ja muut sisällöntuottajat voivat suoratoistaa sisältöään reaaliajassa. Se on suosittu etenkin peliyhteisöissä, mutta sen sisältövalikoima on laajentunut paljon.</p>
+          <p>Twitchissä voi seurata live-striimejä, osallistua chat-keskusteluun ja luoda omaa yhteisöään.</p>
+        `;
+        break;
+    }
   }
 
-  function initParticles() {
+  window.onload = () => {
+    const list = document.getElementById('streamer-list');
+    streamers.forEach(s => {
+      list.appendChild(createStreamerCard(s));
+    });
+
+    const navButtons = document.querySelectorAll('nav button');
+    navButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        navButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        showPage(btn.getAttribute('data-page'));
+      });
+    });
+
+    document.getElementById('search').addEventListener('input', e => {
+      const val = e.target.value.toLowerCase();
+      for (const card of list.children) {
+        const name = card.getAttribute('data-name');
+        card.style.display = name.includes(val) ? '' : 'none';
+      }
+    });
+
+    showPage('home');
+
+    // Partikkelit
     const container = document.getElementById('particles');
     const count = 40;
     for(let i=0; i<count; i++) {
@@ -413,33 +437,6 @@
       particle.style.animationDuration = (3 + Math.random() * 4) + 's';
       container.appendChild(particle);
     }
-  }
-
-  window.onload = () => {
-    // Streamer-listan luonti
-    const list = document.getElementById('streamer-list');
-    streamers.forEach((s, i) => {
-      const card = createStreamerCard(s, i);
-      list.appendChild(card);
-    });
-
-    // Haku
-    const searchInput = document.getElementById('search');
-    searchInput.addEventListener('input', e => {
-      const val = e.target.value.toLowerCase();
-      for (const card of list.children) {
-        const name = card.getAttribute('data-name');
-        card.style.display = name.includes(val) ? '' : 'none';
-      }
-    });
-
-    // YouTube videot
-    const ytContainer = document.getElementById('youtube-videos');
-    youtubeVideos.forEach(v => {
-      ytContainer.appendChild(createYoutubeEmbed(v));
-    });
-
-    initParticles();
   };
 </script>
 
