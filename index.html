@@ -3,244 +3,230 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Suomalaiset Twitch-striimaajat</title>
-
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>TopiaBets Twitch Suomi</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
     body {
-      background: linear-gradient(135deg, #120f2c, #1a1c29);
-      font-family: 'Orbitron', sans-serif;
-      color: #ddd;
-      margin: 0; padding: 0;
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #1f0055, #5b0060);
+      color: #eee;
       min-height: 100vh;
-      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
     }
+
     #top-banner {
-      background: #9147ffcc;
       text-align: center;
-      color: #fff;
-      font-weight: 700;
-      padding: 0.6rem 1rem;
-      font-size: 1rem;
-      letter-spacing: 0.04em;
+      font-weight: 900;
+      font-size: 1.6rem;
+      padding: 1rem 0;
+      color: #9147ff;
+      text-shadow: 0 0 10px #9147ff88;
       user-select: none;
-      text-transform: uppercase;
-      box-shadow: 0 0 15px #9147ff88;
     }
+
     header {
-      text-align: center;
-      padding: 1.8rem 1rem 1rem;
       font-size: 2.8rem;
       font-weight: 900;
-      color: #ff61a6;
-      text-shadow: 0 0 12px #ff61a6cc;
+      text-align: center;
+      margin: 0.5rem 0 1rem;
+      text-shadow: 0 0 12px #9147ffaa;
+      user-select: none;
     }
+
     nav {
       display: flex;
       justify-content: center;
       gap: 1rem;
-      margin-bottom: 1.5rem;
-      flex-wrap: wrap;
+      margin-bottom: 1rem;
       user-select: none;
-      z-index: 1000;
     }
+
     nav button {
       background: transparent;
       border: 2px solid #9147ff;
-      color: #9147ff;
+      border-radius: 30px;
       padding: 0.5rem 1.3rem;
-      border-radius: 12px;
       font-weight: 700;
-      font-size: 1rem;
+      color: #9147ff;
       cursor: pointer;
       transition: all 0.3s ease;
+      font-size: 1rem;
     }
+
+    nav button.active,
     nav button:hover {
-      background: #ff61a6;
-      border-color: #ff61a6;
-      color: #fff;
-      box-shadow: 0 0 10px #ff61a6cc;
-    }
-    nav button.active {
       background: #9147ff;
-      border-color: #9147ff;
       color: #fff;
-      box-shadow: 0 0 15px #9147ffaa;
-      cursor: default;
+      box-shadow: 0 0 8px #9147ffaa;
     }
 
     #search {
       display: block;
-      margin: 0 auto 2rem auto;
-      max-width: 400px;
+      margin: 0 auto 1.5rem;
       width: 90%;
-      background: #22253a;
-      border: none;
-      border-radius: 16px;
-      padding: 0.75rem 1rem;
-      color: #ddd;
+      max-width: 400px;
+      padding: 0.5rem 1rem;
+      border-radius: 30px;
+      border: 2px solid #9147ff;
+      background: transparent;
+      color: #eee;
       font-size: 1rem;
-      box-shadow: 0 0 15px #9147ff55 inset;
-      transition: box-shadow 0.3s ease;
-      outline-offset: 2px;
+      outline: none;
+      transition: border-color 0.3s ease;
     }
     #search:focus {
-      box-shadow: 0 0 20px #ff61a6cc inset;
-      outline: none;
+      border-color: #ff61a6;
+      box-shadow: 0 0 6px #ff61a6aa;
     }
 
-    #follow-text {
-      position: fixed;
-      bottom: 14px;
-      right: 16px;
-      font-family: 'Orbitron', sans-serif;
-      font-weight: 700;
-      font-size: 0.85rem;
-      color: #9147ffcc;
-      text-shadow: 0 0 6px #9147ff88;
-      cursor: pointer;
+    main {
+      flex-grow: 1;
+      padding: 0 1rem 2rem;
+      max-width: 1080px;
+      margin: 0 auto;
+      width: 100%;
       user-select: none;
-      z-index: 1001;
-      transition: color 0.3s ease;
-      opacity: 0.7;
-    }
-    #follow-text:hover {
-      color: #ff61a6;
-      text-shadow: 0 0 12px #ff61a6;
-      opacity: 1;
     }
 
-    #streamer-list {
+    .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
-      gap: 2rem;
-      max-width: 980px;
-      margin: 0 auto 3rem;
-      padding: 0 1rem;
-      z-index: 10;
+      grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+      gap: 1.4rem;
     }
 
     .card {
-      background: linear-gradient(145deg, #22253a, #1a1c29);
-      border-radius: 24px;
-      box-shadow: 0 0 25px #9147ffaa;
-      padding: 2rem 1.8rem;
+      background: rgba(25, 10, 40, 0.65);
+      border-radius: 16px;
+      box-shadow: 0 0 10px #9147ff66 inset;
+      padding: 1.2rem 1rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       color: #ddd;
-      user-select: text;
-      text-align: center;
       position: relative;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: box-shadow 0.4s ease;
       overflow: hidden;
     }
-    .card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 0 40px #ff61a6cc;
-      cursor: pointer;
-    }
 
-    .card img.profile-pic {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      border: 3px solid #9147ff;
-      margin-bottom: 1rem;
-      object-fit: cover;
-      filter: drop-shadow(0 0 6px #9147ffcc);
+    /* Twitch logos with slight style variation */
+    .twitch-logo-small {
+      width: 36px;
+      height: 36px;
+      margin-bottom: 10px;
+      filter: drop-shadow(0 0 3px #9147ff88);
       transition: filter 0.3s ease;
     }
-    .card:hover img.profile-pic {
-      filter: drop-shadow(0 0 12px #ff61a6cc);
+
+    /* Different variants of Twitch logos for variety */
+    .logo-variant-1 {
+      filter: drop-shadow(0 0 4px #9147ffcc);
+    }
+    .logo-variant-2 {
+      filter: drop-shadow(0 0 5px #ff61a6cc);
+      transform: rotate(-3deg);
+    }
+    .logo-variant-3 {
+      filter: drop-shadow(0 0 3px #61ffb8cc);
+      transform: rotate(2deg);
+    }
+    .logo-variant-4 {
+      filter: drop-shadow(0 0 4px #ffb361cc);
+      transform: rotate(-1.5deg);
+    }
+    .logo-variant-5 {
+      filter: drop-shadow(0 0 5px #ff61a6cc);
+      transform: rotate(1deg);
+    }
+    .logo-variant-6 {
+      filter: drop-shadow(0 0 4px #61a6ffcc);
+      transform: rotate(-2deg);
     }
 
     .card h2 {
-      font-size: 1.8rem;
-      margin: 0.4rem 0 0.6rem;
-      color: #ff61a6;
-      text-shadow: 0 0 10px #ff61a6cc;
-      font-weight: 900;
-      user-select: text;
+      margin: 0.3rem 0 0.5rem;
+      font-weight: 700;
+      font-size: 1.5rem;
+      text-align: center;
+    }
+
+    .card p {
+      font-size: 1rem;
+      margin: 0 0 0.5rem;
+      text-align: center;
+      line-height: 1.3;
+      color: #ccc;
+    }
+
+    .stream-title {
+      font-size: 0.9rem;
+      font-style: italic;
+      color: #aaa;
+      text-align: center;
+      margin-bottom: 1rem;
+      min-height: 2.5rem; /* Jotta layout ei hyppää, vaikka ei olisi otsikkoa */
     }
 
     .live-status {
-      font-weight: 700;
-      font-size: 1rem;
+      font-weight: 900;
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      padding: 0.2rem 1rem;
+      border-radius: 40px;
       user-select: none;
-      padding: 0.3rem 0.7rem;
-      border-radius: 18px;
-      display: inline-block;
-      margin-top: 6px;
-      letter-spacing: 0.03em;
-      transition: background-color 0.3s ease, color 0.3s ease;
-      box-shadow: 0 0 8px #000000aa inset;
+      width: fit-content;
+      color: #eee;
+      text-shadow: 0 0 10px;
     }
     .live-status.live {
-      background-color: #22c55e;
-      color: #f0fdf4;
-      box-shadow: 0 0 20px #22c55eaa;
+      background: #6ab04c;
+      box-shadow: 0 0 12px #6ab04c99;
     }
     .live-status.offline {
-      background-color: #6b7280;
-      color: #d1d5db;
-      box-shadow: 0 0 15px #6b7280aa;
+      background: #d63031;
+      box-shadow: 0 0 12px #d6303199;
     }
 
-    /* Color classes for each streamer for subtle glow */
-    .color-j1mppaz { box-shadow: 0 0 30px #ff61a6cc; }
-    .color-skotti { box-shadow: 0 0 30px #7c3aedcc; }
-    .color-gargee { box-shadow: 0 0 30px #10b981cc; }
-    .color-lewaaw { box-shadow: 0 0 30px #3b82f6cc; }
-    .color-novicci { box-shadow: 0 0 30px #f59e0bcc; }
-    .color-hukkaw { box-shadow: 0 0 30px #ec4899cc; }
-
-    #content {
-      max-width: 900px;
-      margin: 0 auto 60px;
-      padding: 0 20px;
-      color: #ddd;
-      font-size: 1.15rem;
-      line-height: 1.6;
-      user-select: text;
-      z-index: 10;
-    }
-
-    .info-box {
-      background: linear-gradient(145deg, #1a1c29, #11141f);
-      border-radius: 24px;
-      padding: 2rem 2.5rem;
-      box-shadow: 0 0 30px #9147ffaa;
-      margin-bottom: 40px;
-      color: #eee;
-      user-select: text;
-      border: 2px solid #9147ff;
-    }
-    .info-box h2 {
-      font-family: 'Orbitron', sans-serif;
-      font-weight: 900;
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
-      color: #ff61a6;
-      text-shadow: 0 0 8px #ff61a6cc;
-    }
-    .info-box p {
+    /* Tyylikäs painike "Käy kanavalla" */
+    .visit-channel-btn {
+      background: #9147ff;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      padding: 0.5rem 1.4rem;
+      border-radius: 30px;
+      box-shadow: 0 0 8px #9147ffbb;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      user-select: none;
       font-size: 1rem;
-      line-height: 1.5;
-      color: #ccc;
+      display: inline-block;
     }
-    .info-box .twitch-logo {
-      width: 48px;
-      filter: drop-shadow(0 0 4px #9147ffaa);
-      margin-bottom: 16px;
-      user-select: none;
+    .visit-channel-btn:hover,
+    .visit-channel-btn:focus {
+      background: #ff61a6;
+      box-shadow: 0 0 10px #ff61a6bb;
+      outline: none;
     }
 
-    footer {
-      text-align: center;
-      padding: 1rem 0 1.5rem;
-      font-size: 0.9rem;
-      color: #9147ffbb;
+    /* Seurausteksti */
+    #follow-text {
+      position: fixed;
+      bottom: 12px;
+      right: 12px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #9147ffcc;
       user-select: none;
+      text-shadow: 0 0 8px #9147ff77;
+      transition: opacity 0.4s ease;
+      cursor: pointer;
+      z-index: 1000;
+    }
+    #follow-text:hover {
+      color: #ff61a6ee;
+      text-shadow: 0 0 12px #ff61a6dd;
     }
 
     /* Particle Background */
@@ -252,6 +238,7 @@
       pointer-events: none;
       overflow: hidden;
       z-index: 0;
+      user-select: none;
     }
     .particle {
       position: absolute;
@@ -259,6 +246,7 @@
       border-radius: 50%;
       opacity: 0.15;
       animation: float 12s infinite ease-in-out;
+      mix-blend-mode: screen;
     }
     .particle:nth-child(odd) {
       background: #ff61a6;
@@ -267,6 +255,26 @@
     @keyframes float {
       0%, 100% { transform: translateY(0) translateX(0); }
       50% { transform: translateY(-20px) translateX(5px); }
+    }
+
+    /* Info box styles for other pages */
+    .info-box {
+      background: rgba(25, 10, 40, 0.75);
+      border-radius: 16px;
+      box-shadow: 0 0 12px #9147ffbb inset;
+      padding: 1rem 1.2rem;
+      color: #ddd;
+      user-select: text;
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 500px) {
+      nav {
+        flex-wrap: wrap;
+      }
+      .card {
+        padding: 1rem;
+      }
     }
   </style>
 </head>
@@ -329,7 +337,7 @@
         <img
           src="https://static.twitchcdn.net/assets/favicon-32-e29e246c157142c94346.png"
           alt="Twitch logo"
-          class="twitch-logo"
+          class="twitch-logo-small"
           loading="lazy"
         />
         <h2>Tietoa Twitchistä</h2>
@@ -357,87 +365,83 @@
   >Follow J1mPPaZ in Twitch!</a>
 
   <script>
+    // Twitch-logon eri variantit luettelo
+    const twitchLogoVariants = [
+      'logo-variant-1',
+      'logo-variant-2',
+      'logo-variant-3',
+      'logo-variant-4',
+      'logo-variant-5',
+      'logo-variant-6'
+    ];
+
+    // Esimerkkidata streamereille, viimeisimmät otsikot mukana
     const streamers = [
       {
         name: 'J1mPPaZ',
         desc: 'Koodausta, pelejä ja modernia luovuutta – tunnettu monipuolisuudestaan.',
         twitch: 'https://www.twitch.tv/j1mppaz',
-        img: 'https://static-cdn.jtvnw.net/jtv_user_pictures/98e1567b-23d9-48fa-9b03-19de52b0da36-profile_image-70x70.png',
-        colorClass: 'color-j1mppaz',
         live: true,
-        viewers: 324
+        lastTitle: 'Building awesome web apps with JS!'
       },
       {
-        name: 'Skotti',
-        desc: 'Hauska ja energinen striimaaja, joka on aktiivinen useissa peleissä ja yhteisölähetyksissä.',
-        twitch: 'https://www.twitch.tv/skotti',
-        img: 'https://static-cdn.jtvnw.net/jtv_user_pictures/e2247b2c-5a6c-42b2-a42f-68d49ca5450e-profile_image-70x70.png',
-        colorClass: 'color-skotti',
+        name: 'Moonlight',
+        desc: 'Rauhallista gameplayta ja chill vibes.',
+        twitch: 'https://www.twitch.tv/moonlight',
         live: false,
-        viewers: 0
+        lastTitle: 'Offline - palataan pian!'
       },
       {
-        name: 'Gargee',
-        desc: 'Rentoa pelistriimausta ja hyvää fiilistä – tunnetaan rauhallisesta tyylistään.',
-        twitch: 'https://www.twitch.tv/gargee',
-        img: 'https://static-cdn.jtvnw.net/jtv_user_pictures/0ac1f02e-01db-4d3e-aed8-008ecdd3dce8-profile_image-70x70.png',
-        colorClass: 'color-gargee',
+        name: 'SuomiGamer',
+        desc: 'Pelistriimausta ja hauskoja hetkiä.',
+        twitch: 'https://www.twitch.tv/suomigamer',
         live: true,
-        viewers: 86
+        lastTitle: 'Epic raid & chill session'
       },
       {
-        name: 'Lewaaw',
-        desc: 'Nopeatempoisia pelejä ja kilpailullista pelimeininkiä suomenkielisellä twistillä.',
-        twitch: 'https://www.twitch.tv/lewaaw',
-        img: 'https://static-cdn.jtvnw.net/jtv_user_pictures/4f1d90e7-c477-4f8a-8545-8f4d2e117eb3-profile_image-70x70.png',
-        colorClass: 'color-lewaaw',
+        name: 'StreamMaster',
+        desc: 'Viihdyttävää striimausta joka päivä.',
+        twitch: 'https://www.twitch.tv/streammaster',
         live: false,
-        viewers: 0
-      },
-      {
-        name: 'Novicci',
-        desc: 'Interaktiivista sisältöä ja hyvät yhteisölähetykset – paljon juttelua katsojien kanssa.',
-        twitch: 'https://www.twitch.tv/novicci',
-        img: 'https://static-cdn.jtvnw.net/jtv_user_pictures/426968f8-3979-479a-8a88-9f2f3d1e7b5b-profile_image-70x70.png',
-        colorClass: 'color-novicci',
-        live: true,
-        viewers: 52
-      },
-      {
-        name: 'Hukkaw',
-        desc: 'Monipuolinen pelistriimaaja, jonka kanavalla on sekä kilpailullista että rentoa meininkiä.',
-        twitch: 'https://www.twitch.tv/hukkaw',
-        img: 'https://static-cdn.jtvnw.net/jtv_user_pictures/1180bc4f-d4d3-4a59-82a9-6f1b03b14f1c-profile_image-70x70.png',
-        colorClass: 'color-hukkaw',
-        live: false,
-        viewers: 0
-      },
+        lastTitle: 'Offline - Palaamme pian takaisin'
+      }
     ];
 
-    function createStreamerCard(s) {
-      const card = document.createElement('div');
-      card.className = `card ${s.colorClass}`;
-      card.setAttribute('data-name', s.name.toLowerCase());
+    // Luo streamerin kortti ilman profiilikuvaa mutta twitch-logolla ja viimeisellä otsikolla
+    function createStreamerCard(s, index) {
+      const card = document.createElement('article');
+      card.className = 'card';
+
+      // Twitch-logo variantti kiertää listan pituuden mukaan
+      const logoClass = twitchLogoVariants[index % twitchLogoVariants.length];
 
       card.innerHTML = `
-        <img src="${s.img}" alt="${s.name} profiilikuva" class="profile-pic" loading="lazy" />
+        <img 
+          src="https://static.twitchcdn.net/assets/favicon-32-e29e246c157142c94346.png"
+          alt="Twitch logo"
+          class="twitch-logo-small ${logoClass}"
+          loading="lazy"
+          aria-hidden="true"
+        />
         <h2>${s.name}</h2>
         <p>${s.desc}</p>
-        <a href="${s.twitch}" target="_blank" rel="noopener noreferrer" aria-label="Käy ${s.name} Twitch-kanavalla" class="inline-block mt-3 text-purple-400 underline hover:text-purple-600">Käy kanavalla</a>
+        <div class="stream-title">${s.lastTitle}</div>
+        <a href="${s.twitch}" target="_blank" rel="noopener noreferrer" class="visit-channel-btn" aria-label="Käy ${s.name} Twitch-kanavalla">Käy kanavalla</a>
         <div class="live-status ${s.live ? 'live' : 'offline'}" aria-live="polite">${s.live ? 'LIVE' : 'OFFLINE-TILASSA'}</div>
       `;
       return card;
     }
 
+    // Renderöi kaikki streamerit
     function renderStreamers(list) {
       const container = document.getElementById('streamer-list');
       container.innerHTML = '';
-      list.forEach(s => {
-        container.appendChild(createStreamerCard(s));
+      list.forEach((s, i) => {
+        container.appendChild(createStreamerCard(s, i));
       });
     }
 
-    // Search function
+    // Haku
     const searchInput = document.getElementById('search');
     searchInput.addEventListener('input', () => {
       const term = searchInput.value.trim().toLowerCase();
@@ -445,7 +449,7 @@
       renderStreamers(filtered);
     });
 
-    // Navigation for pages
+    // Navigointi sivujen välillä
     const navButtons = document.querySelectorAll('nav button');
     const pages = document.querySelectorAll('.page');
 
@@ -460,7 +464,7 @@
       });
     });
 
-    // Particle background generation
+    // Partikkelit taustalle
     const particlesContainer = document.getElementById('particles');
     function createParticles() {
       const count = 50;
