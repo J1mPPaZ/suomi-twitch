@@ -6,12 +6,12 @@
 <title>Suomalaiset Twitch-striimaajat</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
-  /* Taustagradient ja animointi */
   body {
     background: linear-gradient(-45deg, #0d1117, #161b22, #0d1117, #161b22);
     background-size: 400% 400%;
     animation: gradientBG 20s ease infinite;
     overflow-x: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
   @keyframes gradientBG {
     0% {background-position: 0% 50%;}
@@ -19,7 +19,7 @@
     100% {background-position: 0% 50%;}
   }
 
-  /* Leijuva partikkelit */
+  /* Partikkelit taustalle */
   .particle {
     position: fixed;
     background: rgba(74, 222, 128, 0.4);
@@ -30,25 +30,7 @@
     filter: drop-shadow(0 0 4px #4ade80);
   }
 
-  /* Kortti */
-  .streamer-card {
-    background: rgba(30, 41, 59, 0.85);
-    border-radius: 1.5rem;
-    box-shadow:
-      0 4px 30px rgba(74, 222, 128, 0.3);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    border: 1px solid rgba(74, 222, 128, 0.3);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
-  }
-  .streamer-card:hover {
-    transform: translateY(-10px) scale(1.05);
-    box-shadow:
-      0 8px 40px rgba(74, 222, 128, 0.7);
-  }
-
-  /* Animointi fadein */
+  /* Animaatiot kortteihin */
   .fade-in {
     animation: fadeInUp 0.6s ease forwards;
     opacity: 0;
@@ -61,7 +43,7 @@
     }
   }
 
-  /* Scrollbar tyylittely */
+  /* Scrollbar tyylit */
   ::-webkit-scrollbar {
     width: 10px;
   }
@@ -73,9 +55,137 @@
     border-radius: 10px;
   }
 
+  /* Streamer boxien eri tyylit */
+
+  /* J1mPPaZ */
+  .card-j1mppaz {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: #ecfccb;
+    border-radius: 1.5rem;
+    box-shadow: 0 0 20px #22c55e88;
+    padding: 1.8rem;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    text-align: center;
+  }
+  .card-j1mppaz:hover {
+    transform: scale(1.08) rotate(-2deg);
+    box-shadow: 0 0 40px #22c55ecc;
+  }
+
+  /* Skotti */
+  .card-skotti {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: #dbeafe;
+    border-radius: 2rem 0.5rem 2rem 0.5rem;
+    padding: 2rem;
+    box-shadow: 0 0 25px #3b82f688;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: left;
+  }
+  .card-skotti:hover {
+    transform: scale(1.07) translateX(8px);
+    box-shadow: 0 0 45px #3b82febf;
+  }
+
+  /* Gargee */
+  .card-gargee {
+    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+    color: #ede9fe;
+    border-radius: 0.5rem 2rem 0.5rem 2rem;
+    padding: 1.5rem 2rem;
+    box-shadow: 0 0 20px #8b5cf688;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+    text-align: right;
+  }
+  .card-gargee:hover {
+    transform: scale(1.06) translateX(-10px);
+    box-shadow: 0 0 40px #8b5cf6bf;
+  }
+
+  /* Lewaaw */
+  .card-lewaaw {
+    background: linear-gradient(135deg, #f97316, #ea580c);
+    color: #fff7ed;
+    border-radius: 2rem;
+    padding: 2rem;
+    box-shadow: 0 0 25px #f9731688;
+    text-align: center;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+  .card-lewaaw:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 50px #f97316cc;
+  }
+
+  /* Novicci */
+  .card-novicci {
+    background: linear-gradient(135deg, #f43f5e, #be123c);
+    color: #fee2e2;
+    border-radius: 1.5rem 0.5rem 1.5rem 0.5rem;
+    padding: 1.8rem;
+    box-shadow: 0 0 20px #f43f5e88;
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .card-novicci:hover {
+    transform: scale(1.05) rotate(3deg);
+    box-shadow: 0 0 40px #f43f5ecf;
+  }
+
+  /* Hukkaw */
+  .card-hukkaw {
+    background: linear-gradient(135deg, #14b8a6, #0f766e);
+    color: #d1fae5;
+    border-radius: 0.5rem 1.5rem 0.5rem 1.5rem;
+    padding: 2rem 1.8rem;
+    box-shadow: 0 0 20px #14b8a688;
+    text-align: right;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+  .card-hukkaw:hover {
+    transform: scale(1.07) translateY(-8px);
+    box-shadow: 0 0 45px #14b8a6cc;
+  }
+
+  /* Katso Twitchissä nappi */
+  .btn-twitch {
+    background: #4ade80;
+    color: #1a1a1a;
+    padding: 0.7rem 1.6rem;
+    border-radius: 0.8rem;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    display: inline-block;
+    box-shadow: 0 4px 12px #4ade8077;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+  }
+  .btn-twitch:hover {
+    background-color: #22c55e;
+    transform: scale(1.1);
+  }
+
+  /* Live status */
+  .live-status {
+    font-weight: 700;
+    padding: 0.3rem 0.8rem;
+    border-radius: 9999px;
+    font-size: 0.9rem;
+    display: inline-block;
+    margin-bottom: 0.8rem;
+    box-shadow: 0 0 10px;
+  }
+  .live-status.live {
+    background-color: #dc2626;
+    color: white;
+    box-shadow: 0 0 20px #dc2626bb;
+  }
+  .live-status.offline {
+    color: #94a3b8;
+  }
 </style>
 </head>
-<body class="text-white font-sans min-h-screen flex flex-col">
+<body class="text-white min-h-screen flex flex-col">
 
   <div class="max-w-5xl mx-auto p-6 flex-grow">
     <h1 class="text-4xl font-extrabold mb-8 text-center text-accent drop-shadow-lg">🇫🇮 Suomalaiset Twitch-striimaajat</h1>
@@ -95,27 +205,19 @@
 
   <script>
     const streamers = [
-      { name: 'J1mPPaZ', twitchId: 'j1mppaz' },
-      { name: 'Skotti', twitchId: 'skotti' },
-      { name: 'Gargee', twitchId: 'gargee' },
-      { name: 'Lewaaw', twitchId: 'lewaaw' },
-      { name: 'Novicci', twitchId: 'novicci' },
-      { name: 'Laeppavika', twitchId: 'laeppavika' },
-      { name: 'Hukkaw', twitchId: 'hukkaw' },
-    ];
-
-    // Äänet (vapaa lähde: https://freesound.org, voit vaihtaa URLit tai korvata omilla)
-    const sounds = [
-      new Audio('https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg'),
-      new Audio('https://actions.google.com/sounds/v1/cartoon/wood_plank_flicks.ogg'),
-      new Audio('https://actions.google.com/sounds/v1/cartoon/pop.ogg'),
+      { name: 'J1mPPaZ', twitchId: 'j1mppaz', cardClass: 'card-j1mppaz' },
+      { name: 'Skotti', twitchId: 'skotti', cardClass: 'card-skotti' },
+      { name: 'Gargee', twitchId: 'gargee', cardClass: 'card-gargee' },
+      { name: 'Lewaaw', twitchId: 'lewaaw', cardClass: 'card-lewaaw' },
+      { name: 'Novicci', twitchId: 'novicci', cardClass: 'card-novicci' },
+      { name: 'Hukkaw', twitchId: 'hukkaw', cardClass: 'card-hukkaw' },
     ];
 
     async function fetchStreamData(username) {
       try {
         const res = await fetch(`https://decapi.me/twitch/status/${username}`);
         const text = await res.text();
-        const isLive = !text.includes('offline');
+        const isLive = !text.toLowerCase().includes('offline');
         const viewersMatch = text.match(/\((\d+)\s+katsojaa/);
         const viewers = viewersMatch ? viewersMatch[1] : null;
         return { isLive, viewers, statusText: text };
@@ -124,75 +226,29 @@
       }
     }
 
-    function playRandomSound() {
-      const sound = sounds[Math.floor(Math.random() * sounds.length)];
-      sound.currentTime = 0;
-      sound.play();
-    }
-
-    // Luo leijuva partikkeleita taustalle
-    function createParticles(count = 40) {
-      for (let i = 0; i < count; i++) {
-        const p = document.createElement('div');
-        p.classList.add('particle');
-        p.style.width = p.style.height = (5 + Math.random() * 10) + 'px';
-        p.style.left = Math.random() * window.innerWidth + 'px';
-        p.style.top = Math.random() * window.innerHeight + 'px';
-        p.style.animation = `float${i % 3} ${5 + Math.random() * 10}s ease-in-out infinite alternate`;
-        document.body.appendChild(p);
-      }
-    }
-    // Partikkelianimaatiot
-    const style = document.createElement('style');
-    style.textContent = `
-      @keyframes float0 {
-        0% {transform: translateY(0);}
-        100% {transform: translateY(-40px);}
-      }
-      @keyframes float1 {
-        0% {transform: translateY(0);}
-        100% {transform: translateY(-60px);}
-      }
-      @keyframes float2 {
-        0% {transform: translateY(0);}
-        100% {transform: translateY(-50px);}
-      }
-    `;
-    document.head.appendChild(style);
-
     window.onload = async () => {
-      createParticles();
-
       const list = document.getElementById('streamer-list');
 
       for (const [i, s] of streamers.entries()) {
         const card = document.createElement('div');
-        card.className = 'streamer-card fade-in';
-        card.style.animationDelay = (i * 0.1) + 's';
+        card.className = `${s.cardClass} fade-in`;
+        card.style.animationDelay = (i * 0.12) + 's';
         card.setAttribute('data-name', s.name.toLowerCase());
 
         const twitchURL = `https://www.twitch.tv/${s.twitchId}`;
         const { isLive, viewers, statusText } = await fetchStreamData(s.twitchId);
 
         card.innerHTML = `
-          <h2 class="text-2xl font-semibold text-accent mb-2">${s.name}</h2>
-          <p class="mb-2 text-sm italic">${statusText}</p>
+          <h2 class="text-2xl font-semibold mb-2">${s.name}</h2>
+          <p class="mb-2 italic">${statusText}</p>
           ${
             isLive
-              ? `<span class="bg-red-600 text-white text-sm px-3 py-1 rounded-full mb-4 inline-block shadow-lg">LIVE – ${
-                  viewers || '?'
-                } katsojaa</span>`
-              : `<span class="text-gray-400 text-sm mb-4 font-bold uppercase">OFFLINE-TILASSA</span>`
+              ? `<span class="live-status live">LIVE – ${viewers || '?'} katsojaa</span>`
+              : `<span class="live-status offline">OFFLINE-TILASSA</span>`
           }
-          <button class="bg-accent text-dark px-5 py-3 rounded-lg font-semibold hover:bg-green-400 transition shadow-md w-full">Katso Twitchissä</button>
+          <br/>
+          <a href="${twitchURL}" target="_blank" rel="noopener" class="btn-twitch">Katso Twitchissä</a>
         `;
-
-        // Klikkaussoitin ja linkki
-        const btn = card.querySelector('button');
-        btn.addEventListener('click', () => {
-          playRandomSound();
-          window.open(twitchURL, '_blank');
-        });
 
         list.appendChild(card);
       }
