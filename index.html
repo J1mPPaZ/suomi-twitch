@@ -1,212 +1,136 @@
 <!DOCTYPE html>
 <html lang="fi">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Suomalainen Twitch-sivusto</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-  body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #121212;
-    margin: 0;
-    padding: 30px 20px;
-    color: #eee;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  h1 {
-    font-size: 3rem;
-    color: #9146ff;
-    margin-bottom: 40px;
-    text-transform: uppercase;
-    text-align: center;
-    letter-spacing: 3px;
-    animation: glow 3s ease-in-out infinite alternate;
-    user-select: none;
-  }
-  @keyframes glow {
-    from { text-shadow: 0 0 10px #9146ff; }
-    to { text-shadow: 0 0 25px #c084fc; }
-  }
-  .container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 30px;
-    max-width: 1280px;
-    width: 100%;
-  }
-  .card {
-    background: #222;
-    border-radius: 18px;
-    box-shadow: 0 4px 10px rgba(145, 70, 255, 0.3);
-    width: 320px;
-    overflow: hidden;
-    position: relative;
-    transition: transform 0.35s ease, box-shadow 0.35s ease;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-  }
-  .card:hover {
-    transform: translateY(-10px) scale(1.07);
-    box-shadow: 0 12px 35px rgba(145, 70, 255, 0.7);
-  }
-  .card img.streamer-img {
-    width: 100%;
-    display: block;
-    border-bottom: 3px solid #9146ff;
-    border-top-left-radius: 18px;
-    border-top-right-radius: 18px;
-    aspect-ratio: 1/1;
-    object-fit: cover;
-  }
-  .content {
-    padding: 20px 25px;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  .content h2 {
-    margin: 0 0 10px;
-    font-size: 1.9rem;
-    color: #c084fc;
-    text-align: center;
-  }
-  .content p {
-    font-size: 1rem;
-    color: #ddd;
-    margin-bottom: 20px;
-    min-height: 60px;
-    line-height: 1.3;
-    text-align: center;
-  }
-  .btn {
-    display: block;
-    background-color: #9146ff;
-    color: white;
-    padding: 12px 0;
-    border-radius: 10px;
-    font-weight: 700;
-    text-decoration: none;
-    box-shadow: 0 0 10px #9146ffcc;
-    transition: background-color 0.3s ease;
-    text-align: center;
-    user-select: none;
-  }
-  .btn:hover {
-    background-color: #6a2db3;
-  }
-  /* Twitch logo container */
-  .twitch-logo {
-    position: absolute;
-    top: 18px;
-    right: 18px;
-    width: 40px;
-    height: 40px;
-    fill: #9146ff;
-    animation: pulse 2.5s infinite;
-    pointer-events: none;
-  }
-  /* Different animation delays for logos */
-  .card:nth-child(1) .twitch-logo { animation-delay: 0s; }
-  .card:nth-child(2) .twitch-logo { animation-delay: 0.3s; }
-  .card:nth-child(3) .twitch-logo { animation-delay: 0.6s; }
-  .card:nth-child(4) .twitch-logo { animation-delay: 0.9s; }
-  .card:nth-child(5) .twitch-logo { animation-delay: 1.2s; }
-  .card:nth-child(6) .twitch-logo { animation-delay: 1.5s; }
-
-  @keyframes pulse {
-    0%, 100% { transform: scale(1); fill: #9146ff; }
-    50% { transform: scale(1.15); fill: #c084fc; }
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Suomalaiset Twitch-striimaajat</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #1e1e1e;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 2.5rem;
+      color: #9146ff;
+    }
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+    .card {
+      background-color: #2a2a2a;
+      border-radius: 10px;
+      width: 300px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+      transition: transform 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-10px);
+    }
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .card .content {
+      padding: 15px;
+    }
+    .card h2 {
+      margin: 0;
+      font-size: 1.5rem;
+      color: #9146ff;
+    }
+    .card p {
+      font-size: 1rem;
+      color: #ccc;
+      margin: 10px 0;
+    }
+    .card a {
+      display: inline-block;
+      background-color: #9146ff;
+      color: #fff;
+      padding: 10px;
+      text-decoration: none;
+      border-radius: 5px;
+      text-align: center;
+      width: 100%;
+      margin-top: 10px;
+    }
+    .card a:hover {
+      background-color: #6a2db3;
+    }
+  </style>
 </head>
 <body>
-  <h1>Suomalainen Twitch-sivusto</h1>
+  <h1>Suomalaiset Twitch-striimaajat</h1>
   <div class="container">
-
     <!-- J1mPPaZ -->
-    <div class="card" tabindex="0">
-      <svg class="twitch-logo" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-label="Twitch Logo">
-        <path d="M2 2l2.833 4.472v14.861h4.23v3.667l4.615-3.667h5.322l3.333-9.667V2H2zM18.417 12.5h-2.333v-5h2.333v5zm-5 0h-2.333v-5h2.333v5z"/>
-      </svg>
-      <img class="streamer-img" src="https://static-cdn.jtvnw.net/jtv_user_pictures/9f9a0201-4e33-4843-bd87-f353b7c9a940-profile_image-300x300.png" alt="J1mPPaZ" />
+    <div class="card">
+      <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/9f9a0201-4e33-4843-bd87-f353b7c9a940-profile_image-300x300.png" alt="J1mPPaZ">
       <div class="content">
         <h2>J1mPPaZ</h2>
-        <p>Viimeisin striimi: "GÄMBLÄTÄÄS VÄHÄ!?! 🙏🏻🔥"</p>
-        <a class="btn" href="https://www.twitch.tv/j1mppaz" target="_blank" rel="noopener noreferrer">Katso striimi</a>
+        <p>Viimeisin striimi: "SALILLA 🏋️‍♂️"</p>
+        <a href="https://www.twitch.tv/j1mppaz" target="_blank">Katso striimi</a>
       </div>
     </div>
-
     <!-- Skotti -->
-    <div class="card" tabindex="0">
-      <svg class="twitch-logo" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-label="Twitch Logo">
-        <path d="M3 3l3.5 6v10.5h4.5v4.5l5-4.5h6l4-12V3H3zm17 11.5h-3v-6h3v6zm-6 0h-3v-6h3v6z"/>
-      </svg>
-      <img class="streamer-img" src="https://static-cdn.jtvnw.net/jtv_user_pictures/78bce2f9-7688-4a9f-a899-5f35a99866f4-profile_image-300x300.png" alt="Skotti" />
+    <div class="card">
+      <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/78bce2f9-7688-4a9f-a899-5f35a99866f4-profile_image-300x300.png" alt="Skotti">
       <div class="content">
         <h2>Skotti</h2>
-        <p>Viimeisin striimi: "🏆5000€ TURNAUS🏆SAIN HULLUN NÄYTTIKSEN -> !RTX🏆LOMALTA PALATTU🏆PIAN COOPPERI🏆#poweredbyMSI #RTXOn #ad🏆| !FARMSKINS"</p>
-        <a class="btn" href="https://www.twitch.tv/skotti" target="_blank" rel="noopener noreferrer">Katso striimi</a>
+        <p>Viimeisin striimi: "5000€ TURNAUS 🏆"</p>
+        <a href="https://www.twitch.tv/skotti" target="_blank">Katso striimi</a>
       </div>
     </div>
-
     <!-- Gargee -->
-    <div class="card" tabindex="0">
-      <svg class="twitch-logo" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-label="Twitch Logo">
-        <path d="M2 2h16l4 10-4 10H6l-4-10V2zm16 14.5h-5v-8h5v8zm-7 0h-5v-8h5v8z"/>
-      </svg>
-      <img class="streamer-img" src="https://static-cdn.jtvnw.net/jtv_user_pictures/066b1e4f-1b54-40ed-96a0-1e9454c9a9b6-profile_image-300x300.png" alt="Gargee" />
+    <div class="card">
+      <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/066b1e4f-1b54-40ed-96a0-1e9454c9a9b6-profile_image-300x300.png" alt="Gargee">
       <div class="content">
         <h2>Gargee</h2>
-        <p>Viimeisin striimi: "🏆 YKS CS 🏆 FNCS SHOWDOWN 🏆 FINAALI🏆 KISKATSOMO 🏆 ÖRÖ PELAAJA NYKYÄÄ ($700) 🏆 !farmskins !earnings"</p>
-        <a class="btn" href="https://www.twitch.tv/gargee" target="_blank" rel="noopener noreferrer">Katso striimi</a>
+        <p>Viimeisin striimi: "FNCS SHOWDOWN FINAALI 🏆"</p>
+        <a href="https://www.twitch.tv/gargee" target="_blank">Katso striimi</a>
       </div>
     </div>
-
     <!-- Lewaaw -->
-    <div class="card" tabindex="0">
-      <svg class="twitch-logo" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-label="Twitch Logo">
-        <path d="M4 4h14v8h-3v5l-5-5H4V4zm14 7h-2v-5h2v5zm-6 0h-2v-5h2v5z"/>
-      </svg>
-      <img class="streamer-img" src="https://static-cdn.jtvnw.net/jtv_user_pictures/7ff4a14c-f842-462e-85d7-0bb04b69ff6a-profile_image-300x300.png" alt="Lewaaw" />
+    <div class="card">
+      <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/7ff4a14c-f842-462e-85d7-0bb04b69ff6a-profile_image-300x300.png" alt="Lewaaw">
       <div class="content">
         <h2>Lewaaw</h2>
-        <p>Viimeisin striimi: "😵‍💫😵‍💫 2 CS MATSIA ENNEN REENEI 😵‍💫😵‍💫 !skinclub"</p>
-        <a class="btn" href="https://www.twitch.tv/lewaaw" target="_blank" rel="noopener noreferrer">Katso striimi</a>
+        <p>Viimeisin striimi: "2 CS MATSIA ENNEN REENEI 😵‍💫"</p>
+        <a href="https://www.twitch.tv/lewaaw" target="_blank">Katso striimi</a>
       </div>
     </div>
-
     <!-- Novicci -->
-    <div class="card" tabindex="0">
-      <svg class="twitch-logo" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-label="Twitch Logo">
-        <path d="M3 2h18v14l-4 6H7l-4-6V2zm15 11h-4v-7h4v7zm-7 0h-4v-7h4v7z"/>
-      </svg>
-      <img class="streamer-img" src="https://static-cdn.jtvnw.net/jtv_user_pictures/7c5f021f-4a9e-4180-bb35-56e3f253b825-profile_image-300x300.png" alt="Novicci" />
+    <div class="card">
+      <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/7c5f021f-4a9e-4180-bb35-56e3f253b825-profile_image-300x300.png" alt="Novicci">
       <div class="content">
         <h2>Novicci</h2>
-        <p>Viimeisin striimi: "VAAATTEITA REISSUUN | kohta kyprokselle =P !skinclub"</p>
-        <a class="btn" href="https://www.twitch.tv/novicci" target="_blank" rel="noopener noreferrer">Katso striimi</a>
+        <p>Viimeisin striimi: "VAAATTEITA REISSUUN | kohta kyprokselle =P"</p>
+        <a href="https://www.twitch.tv/novicci" target="_blank">Katso striimi</a>
       </div>
     </div>
-
     <!-- Hukkaw -->
-    <div class="card" tabindex="0">
-      <svg class="twitch-logo" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-label="Twitch Logo">
-        <path d="M4 3h16v12l-5 6H4l-1-6V3zm15 10h-3v-8h3v8zm-7 0h-3v-8h3v8z"/>
-      </svg>
-      <img class="streamer-img" src="https://static-cdn.jtvnw.net/jtv_user_pictures/23b57a97-72ed-4a68-a2b9-fd3af2546a19-profile_image-300x300.png" alt="Hukkaw" />
+    <div class="card">
+      <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/23b57a97-72ed-4a68-a2b9-fd3af2546a19-profile_image-300x300.png" alt="Hukkaw">
       <div class="content">
         <h2>Hukkaw</h2>
         <p>Viimeisin striimi: "Aamukimpsut !"</p>
-        <a class="btn" href="https://www.twitch.tv/hukkaw" target="_blank" rel="noopener noreferrer">Katso striimi</a>
+        <a href="https://www.twitch.tv/hukkaw" target="_blank">Katso striimi</a>
       </div>
     </div>
-
   </div>
 </body>
 </html>
